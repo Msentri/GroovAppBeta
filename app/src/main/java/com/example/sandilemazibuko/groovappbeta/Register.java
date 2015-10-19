@@ -221,11 +221,15 @@ public class Register extends AppCompatActivity {
             pDialog.dismiss();
 
             if(result != null){
-                Intent intent = new Intent(Register.this,CreditCard.class);
-                startActivity(intent);
+                if(result.equals("Email Address taken already")){
+                    Toast.makeText(Register.this, result, Toast.LENGTH_LONG).show();
+                }else {
+                    Intent intent = new Intent(Register.this, CreditCard.class);
+                    startActivity(intent);
+                }
                 //Toast.makeText(Register.this, result, Toast.LENGTH_LONG).show();
             }else{
-                Toast.makeText(Register.this, "User Not Register Successfully", Toast.LENGTH_LONG).show();
+                Toast.makeText(Register.this, result, Toast.LENGTH_LONG).show();
             }
         }
     }
