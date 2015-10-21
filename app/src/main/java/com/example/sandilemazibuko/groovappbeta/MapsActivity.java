@@ -6,6 +6,7 @@ import android.os.AsyncTask;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -24,14 +25,16 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.concurrent.ExecutionException;
 
 public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
 
-    public static final Double WORK_LAT = -26.185014;
-    public static final Double WORK_LONG = 28.020134;
     public static final int DEFAULT_ZOOM = 6;
+
+
+    public static JSONObject titleSandile = null;
 
 
     // Progress Dialog
@@ -40,13 +43,28 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        try {
+            JSONObject sandile = new RequestRestaurants().execute().get();
+
+            titleSandile = sandile;
+
+
+
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+
+
         setContentView(R.layout.activity_maps);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        new RequestRestaurants().execute();
+
     }
 
 
@@ -61,71 +79,40 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
      */
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        mMap = googleMap;
 
+        mMap = googleMap;
         mMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
 
+        //Toast.makeText(MapsActivity.this, titleSandile.toString(), Toast.LENGTH_LONG).show();
 
+        JSONArray Jarray = null;
+        try {
+            Jarray = titleSandile.getJSONArray("places");
 
-        // Add a marker in Sydney and move the camera
+            for(int x = 0; x < Jarray.length();x++){
+                JSONObject object = Jarray.getJSONObject(x);
 
+                String restaurant_name = object.getString("restaurant_name");
 
+                String latitude = object.getString("latitude");
+                String longitude = object.getString("longitude");
 
+                double lati=Double.parseDouble(latitude);
+                double longLat=Double.parseDouble(longitude);
 
-        LatLng sydney = new LatLng(WORK_LAT, WORK_LONG);
-        mMap.addMarker(
-                new MarkerOptions()
-                        .position(sydney)
-                        .title("Harm: 160 Jan Smuts Ave, Johannesburg, 2196")
-                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.map)));
+                // Add a marker in Sydney and move the camera
+                LatLng sydney = new LatLng(lati, longLat);
+                mMap.addMarker(
+                        new MarkerOptions()
+                                .position(sydney)
+                                .title(restaurant_name)
+                                .icon(BitmapDescriptorFactory.fromResource(R.drawable.map)));
 
-
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney, DEFAULT_ZOOM));
-
-        LatLng sydney2 = new LatLng(WORK_LAT+1, WORK_LONG+1);
-        mMap.addMarker(new MarkerOptions()
-                .position(sydney2)
-                .title("Kong:1 Jackson Rd, Central, Hong Kong")
-                .icon(BitmapDescriptorFactory.fromResource(R.drawable.map)));
-
-
-        LatLng sydney3 = new LatLng(WORK_LAT+2, WORK_LONG+2);
-        mMap.addMarker(new MarkerOptions()
-                .position(sydney3)
-                .title("Bungalow: Glen Country Club, 3 Victoria Rd, Clifton, Cape Town, 8005")
-                .icon(BitmapDescriptorFactory.fromResource(R.drawable.map)));
-
-
-        LatLng sydney4 = new LatLng(WORK_LAT+4, WORK_LONG+4);
-        mMap.addMarker(new MarkerOptions()
-                .position(sydney4)
-                .title("Vip: Cnrner Witkoppen & Rivonia Road, Rivonia Crossing, 3 Achter Rd, Johannesburg\n")
-                .icon(BitmapDescriptorFactory.fromResource(R.drawable.map)));
-
-        LatLng sydney5 = new LatLng(WORK_LAT+5, WORK_LONG+5);
-        mMap.addMarker(new MarkerOptions()
-                .position(sydney5)
-                .title("Coccon:24 Central,Cnr Fredman Drive and Gwen Lane,, Sandown, Sandton, Johannesburg, 2192")
-                .icon(BitmapDescriptorFactory.fromResource(R.drawable.map)));
-
-        LatLng sydney6 = new LatLng(WORK_LAT+6, WORK_LONG+6);
-        mMap.addMarker(new MarkerOptions()
-                .position(sydney6)
-                .title("Fight club:60 revonia Rd .\n" +
-                        "Basement bryanpark shopping centre cnr cumberland n grosvenor rd Bryanston .\n" +
-                        "5 star junction honey dew cnr beyers naude n juice street honey dew .\n" +
-                        "2nd floor eagle house \n" +
-                        "39 somrest road, Greenpoint captown\n" +
-                        "9/3/2015 10:30: +27 84 211 8383: Shop 15 melrose arch high street Johannesburg\n")
-                .icon(BitmapDescriptorFactory.fromResource(R.drawable.map)));
-
-        LatLng sydney7 = new LatLng(WORK_LAT+7, WORK_LONG+7);
-        mMap.addMarker(new MarkerOptions()
-                .position(sydney7)
-                .title("Taboo : 24 Central cnr freeman drive n gwen lane Sandown sandton Johannesburg 2192")
-                .icon(BitmapDescriptorFactory.fromResource(R.drawable.map)));
-
-
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney, DEFAULT_ZOOM));
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
         mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
     }
@@ -170,46 +157,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         @Override
         protected void onPostExecute(JSONObject result) {
             pDialog.dismiss();
-
-            try {
-                if(result.getString("success").equals("1")){
-
-                    JSONArray Jarray = null;
-                    try {
-                        Jarray = result.getJSONArray("user");
-
-                        String restaurant_name = "";
-
-
-                        for(int x = 0; x < Jarray.length();x++ ){
-                            JSONObject object = Jarray.getJSONObject(x);
-
-                            String status  = object.getString("status");
-
-
-
-                            String id = object.getString("id");
-                            restaurant_name = object.getString("restaurant_name");
-                            String latitude = object.getString("latitude");
-                            String longitude = object.getString("longitude");
-                            String type = object.getString("type");
-                            String contact = object.getString("contact");
-                            String street = object.getString("street");
-                            String city = object.getString("city");
-                            String province = object.getString("province");
-                        }
-
-                        Toast.makeText(MapsActivity.this, restaurant_name, Toast.LENGTH_SHORT).show();
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-
-                }else{
-                    Toast.makeText(MapsActivity.this, "Restaurants not found", Toast.LENGTH_SHORT).show();
-                }
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
         }
     }
 }
