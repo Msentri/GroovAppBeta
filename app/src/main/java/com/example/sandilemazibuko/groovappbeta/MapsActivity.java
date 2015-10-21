@@ -1,8 +1,12 @@
 package com.example.sandilemazibuko.groovappbeta;
 
+import android.app.ProgressDialog;
+import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -11,6 +15,15 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.squareup.okhttp.OkHttpClient;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.Response;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 
 public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback {
 
@@ -20,6 +33,10 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     public static final Double WORK_LONG = 28.020134;
     public static final int DEFAULT_ZOOM = 6;
 
+
+    // Progress Dialog
+    private ProgressDialog pDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,6 +45,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        new RequestRestaurants().execute();
     }
 
 
@@ -109,5 +128,88 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
 
         mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+    }
+
+    private class RequestRestaurants extends AsyncTask <String, String, JSONObject>{
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            pDialog = new ProgressDialog(MapsActivity.this);
+            pDialog.setMessage("Please wait loading Restaurants  ....");
+            pDialog.show();
+
+        }
+
+        @Override
+        protected JSONObject doInBackground(String... params) {
+
+            String url = "http://groovapp.codist.co.za/get_restaurants_places.php";
+
+            OkHttpClient client = new OkHttpClient();
+
+            Request request = new Request.Builder()
+                    .url(url)
+                    .build();
+
+            Response response = null;
+            JSONObject Jobject = null;
+            try {
+                response = client.newCall(request).execute();
+                String StringRespons = response.body().string();
+                Jobject = new JSONObject(StringRespons);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            return Jobject;
+        }
+
+        @Override
+        protected void onPostExecute(JSONObject result) {
+            pDialog.dismiss();
+
+            try {
+                if(result.getString("success").equals("1")){
+
+                    JSONArray Jarray = null;
+                    try {
+                        Jarray = result.getJSONArray("user");
+
+                        String restaurant_name = "";
+
+
+                        for(int x = 0; x < Jarray.length();x++ ){
+                            JSONObject object = Jarray.getJSONObject(x);
+
+                            String status  = object.getString("status");
+
+
+
+                            String id = object.getString("id");
+                            restaurant_name = object.getString("restaurant_name");
+                            String latitude = object.getString("latitude");
+                            String longitude = object.getString("longitude");
+                            String type = object.getString("type");
+                            String contact = object.getString("contact");
+                            String street = object.getString("street");
+                            String city = object.getString("city");
+                            String province = object.getString("province");
+                        }
+
+                        Toast.makeText(MapsActivity.this, restaurant_name, Toast.LENGTH_SHORT).show();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                }else{
+                    Toast.makeText(MapsActivity.this, "Restaurants not found", Toast.LENGTH_SHORT).show();
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

@@ -234,6 +234,7 @@ public class Register extends AppCompatActivity {
         }
     }
 
+
     /**
      * FUNCTION CHECK IF THE IS CONNECTIVITY ONLINE
      * @return
