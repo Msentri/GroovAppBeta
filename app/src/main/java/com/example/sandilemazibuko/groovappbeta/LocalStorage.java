@@ -1,6 +1,7 @@
 package com.example.sandilemazibuko.groovappbeta;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 
 /**
@@ -54,5 +55,6 @@ public class LocalStorage {
         SharedPreferences.Editor userDatabase = sharedPreferences.edit();
         userDatabase.clear();
         userDatabase.commit();
+
     }
 }

@@ -15,6 +15,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
@@ -43,6 +44,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
 
         try {
             JSONObject sandile = new RequestRestaurants().execute().get();
@@ -83,8 +86,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         mMap = googleMap;
         mMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
 
-        //Toast.makeText(MapsActivity.this, titleSandile.toString(), Toast.LENGTH_LONG).show();
-
         JSONArray Jarray = null;
         try {
             Jarray = titleSandile.getJSONArray("places");
@@ -97,8 +98,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 String latitude = object.getString("latitude");
                 String longitude = object.getString("longitude");
 
-                double lati=Double.parseDouble(latitude);
-                double longLat=Double.parseDouble(longitude);
+                double lati = Double.parseDouble(latitude);
+                double longLat = Double.parseDouble(longitude);
 
                 // Add a marker in Sydney and move the camera
                 LatLng sydney = new LatLng(lati, longLat);
@@ -106,7 +107,17 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                         new MarkerOptions()
                                 .position(sydney)
                                 .title(restaurant_name)
+                                .snippet(latitude + " " + longitude)
                                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.map)));
+
+                mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+                    @Override
+                    public boolean onMarkerClick(Marker marker) {
+                        Toast.makeText(MapsActivity.this, marker.getTitle() + " " + marker.getPosition().latitude
+                                , Toast.LENGTH_SHORT).show();
+                        return false;
+                    }
+                });
 
                 mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney, DEFAULT_ZOOM));
             }
@@ -159,4 +170,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             pDialog.dismiss();
         }
     }
+
+
+
 }

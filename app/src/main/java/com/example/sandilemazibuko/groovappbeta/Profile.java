@@ -92,6 +92,10 @@ public class Profile extends AppCompatActivity
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
+        }else if(id == R.id.action_logout){
+            userDatabase.clearUserData();
+            Intent intent = new Intent(Profile.this, MainActivity.class);
+            startActivity(intent);
         }
 
         return super.onOptionsItemSelected(item);
