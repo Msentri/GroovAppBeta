@@ -113,8 +113,10 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
                     @Override
                     public boolean onMarkerClick(Marker marker) {
-                        Toast.makeText(MapsActivity.this, marker.getTitle() + " " + marker.getPosition().latitude
-                                , Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(MapsActivity.this, marker.getTitle() + " " + marker.getPosition().latitude
+//                                , Toast.LENGTH_SHORT).show();
+
+                        startActivity(new Intent(MapsActivity.this,RestaurantsModal.class));
                         return false;
                     }
                 });
