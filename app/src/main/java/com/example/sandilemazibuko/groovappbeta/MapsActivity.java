@@ -93,7 +93,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             for(int x = 0; x < Jarray.length();x++){
                 JSONObject object = Jarray.getJSONObject(x);
 
-                String restaurant_name = object.getString("restaurant_name");
+                final String restaurant_name = object.getString("restaurant_name");
 
                 String latitude = object.getString("latitude");
                 String longitude = object.getString("longitude");
@@ -103,12 +103,13 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                 // Add a marker in Sydney and move the camera
                 LatLng sydney = new LatLng(lati, longLat);
-                mMap.addMarker(
-                        new MarkerOptions()
-                                .position(sydney)
-                                .title(restaurant_name)
-                                .snippet(latitude + " " + longitude)
-                                .icon(BitmapDescriptorFactory.fromResource(R.drawable.map)));
+
+                final MarkerOptions myMarker = new MarkerOptions()
+                        .position(sydney)
+                        .title(restaurant_name)
+                        .snippet(latitude + " " + longitude)
+                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.map));
+                mMap.addMarker(myMarker);
 
                 mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
                     @Override
@@ -116,7 +117,9 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 //                        Toast.makeText(MapsActivity.this, marker.getTitle() + " " + marker.getPosition().latitude
 //                                , Toast.LENGTH_SHORT).show();
 
-                        startActivity(new Intent(MapsActivity.this,RestaurantsModal.class));
+                        Intent intent = new Intent(getApplicationContext(), RestaurantsModal.class);
+                        intent.putExtra("Place", myMarker.getTitle());
+                        startActivity(intent);
                         return false;
                     }
                 });
