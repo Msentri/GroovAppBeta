@@ -88,7 +88,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         JSONArray Jarray = null;
         try {
-            Jarray = titleSandile.getJSONArray("places");
+            JSONObject sandile = new RequestRestaurants().execute().get();
+            Jarray = sandile.getJSONArray("places");
 
             for(int x = 0; x < Jarray.length();x++){
                 JSONObject object = Jarray.getJSONObject(x);
@@ -117,8 +118,10 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 //                        Toast.makeText(MapsActivity.this, marker.getTitle() + " " + marker.getPosition().latitude
 //                                , Toast.LENGTH_SHORT).show();
 
+                        //Toast.makeText(MapsActivity.this, marker.getTitle(), Toast.LENGTH_LONG).show();
+
                         Intent intent = new Intent(getApplicationContext(), RestaurantsModal.class);
-                        intent.putExtra("Place", myMarker.getTitle());
+                        intent.putExtra("Place", marker.getTitle());
                         startActivity(intent);
                         return false;
                     }
@@ -129,6 +132,10 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney, DEFAULT_ZOOM));
             }
         } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
             e.printStackTrace();
         }
 

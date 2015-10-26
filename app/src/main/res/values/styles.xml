@@ -14,7 +14,8 @@
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
-    <style name="AppTheme.CustomThem">
+    <style name="AppTheme.CustomThem" parent="Theme.AppCompat.NoActionBar">
+
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowCloseOnTouchOutside">true</item>
         <item name="android:windowActionBar">false</item>

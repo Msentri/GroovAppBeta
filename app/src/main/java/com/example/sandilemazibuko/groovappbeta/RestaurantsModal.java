@@ -4,7 +4,11 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class RestaurantsModal extends AppCompatActivity {
 
@@ -12,7 +16,7 @@ public class RestaurantsModal extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        
+
 
         setContentView(R.layout.activity_restaurants_modal);
 
@@ -22,7 +26,7 @@ public class RestaurantsModal extends AppCompatActivity {
         int width = dm.widthPixels;
         int height = dm.heightPixels;
 
-        getWindow().setLayout((int) (width * .8), (int) (height * .6));
+        getWindow().setLayout((int) (width * .9), (int) (height * .7));
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
@@ -31,6 +35,23 @@ public class RestaurantsModal extends AppCompatActivity {
             TextView txtPlace = (TextView)findViewById(R.id.txtPlace);
             txtPlace.setText(value);
         }
+
+        ImageView imageClose = (ImageView)findViewById(R.id.imageClose);
+        imageClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Toast.makeText(RestaurantsModal.this, "", Toast.LENGTH_SHORT).show();
+                finish();
+            }
+        });
+
+        Button attendVanue = (Button)findViewById(R.id.buttonAttend);
+        attendVanue.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(RestaurantsModal.this, "Attend", Toast.LENGTH_SHORT).show();
+            }
+        });
 
 
 
