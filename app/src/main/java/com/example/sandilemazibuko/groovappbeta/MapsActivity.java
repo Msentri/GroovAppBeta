@@ -17,8 +17,10 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.squareup.okhttp.FormEncodingBuilder;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
+import com.squareup.okhttp.RequestBody;
 import com.squareup.okhttp.Response;
 
 import org.json.JSONArray;
@@ -98,6 +100,12 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                 String latitude = object.getString("latitude");
                 String longitude = object.getString("longitude");
+                String place_id = object.getString("id");
+                String type = object.getString("type");
+                final String contact = object.getString("contact");
+                String street = object.getString("street");
+                String city = object.getString("city");
+                final String province = object.getString("province");
 
                 double lati = Double.parseDouble(latitude);
                 double longLat = Double.parseDouble(longitude);
@@ -108,7 +116,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 final MarkerOptions myMarker = new MarkerOptions()
                         .position(sydney)
                         .title(restaurant_name)
-                        .snippet(latitude + " " + longitude)
+                        .snippet(place_id)
                         .icon(BitmapDescriptorFactory.fromResource(R.drawable.map));
                 mMap.addMarker(myMarker);
 
@@ -120,9 +128,39 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                         //Toast.makeText(MapsActivity.this, marker.getTitle(), Toast.LENGTH_LONG).show();
 
+
+
+                        JSONArray Jarray = null;
+
+                        String restaurant_province  = "";
+                        try {
+                            String[] myTaskParams = {marker.getSnippet()};
+
+
+                            JSONObject PlaceDetails =  new RequestRestaurantsDetails().execute(myTaskParams).get();
+                            Jarray = PlaceDetails.getJSONArray("places");
+                            JSONObject object = Jarray.getJSONObject(0);
+
+
+
+                            restaurant_province = object.getString("province");
+
+                           
+
+
+
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        } catch (ExecutionException e) {
+                            e.printStackTrace();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                         Intent intent = new Intent(getApplicationContext(), RestaurantsModal.class);
                         intent.putExtra("Place", marker.getTitle());
+                        intent.putExtra("province",restaurant_province);
                         startActivity(intent);
+
                         return false;
                     }
                 });
@@ -161,6 +199,56 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
             Request request = new Request.Builder()
                     .url(url)
+                    .build();
+
+            Response response = null;
+            JSONObject Jobject = null;
+            try {
+                response = client.newCall(request).execute();
+                String StringRespons = response.body().string();
+                Jobject = new JSONObject(StringRespons);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            return Jobject;
+        }
+
+        @Override
+        protected void onPostExecute(JSONObject result) {
+            pDialog.dismiss();
+        }
+    }
+
+    private class RequestRestaurantsDetails extends AsyncTask <String, String, JSONObject>{
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            pDialog = new ProgressDialog(MapsActivity.this);
+            pDialog.setMessage("Please wait loading Restaurants Details...");
+            pDialog.show();
+
+        }
+
+
+        @Override
+        protected JSONObject doInBackground(String... params) {
+
+            OkHttpClient client = new OkHttpClient();
+
+            String url = "http://groovapp.codist.co.za/get_res_by_id.php";
+
+            RequestBody formBody = new FormEncodingBuilder()
+                    .add("email", params[0])
+                    .build();
+
+            Request request = new Request.Builder()
+                    .url(url)
+                    .post(formBody)
                     .build();
 
             Response response = null;

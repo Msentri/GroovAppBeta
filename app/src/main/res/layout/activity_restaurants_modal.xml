@@ -52,7 +52,7 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="Sandton, JHB"
-                android:id="@+id/textView5"
+                android:id="@+id/txtCity"
                 android:textColor="#fff" />
 
             <TextView

@@ -30,10 +30,14 @@ public class RestaurantsModal extends AppCompatActivity {
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
-            String value = extras.getString("Place");
+            String restaurant_name = extras.getString("Place");
+            String restaurant_province = extras.getString("province");
 
             TextView txtPlace = (TextView)findViewById(R.id.txtPlace);
-            txtPlace.setText(value);
+            txtPlace.setText(restaurant_name);
+
+            TextView txtCity = (TextView)findViewById(R.id.txtCity);
+            txtCity.setText(restaurant_province);
         }
 
         ImageView imageClose = (ImageView)findViewById(R.id.imageClose);

@@ -14,6 +14,7 @@ public class LocalStorage {
 
     public LocalStorage(Context context){
         sharedPreferences = context.getSharedPreferences("userDetails", Context.MODE_PRIVATE);
+        //sharedPreferences = context.getSharedPreferences("placeDetails", Context.MODE_PRIVATE);
     }
 
     /**
@@ -32,6 +33,25 @@ public class LocalStorage {
         editor.putString("user_membership_type",user.membership_type);
         editor.commit();
     }
+
+    public void storePlaceDetailsOnPreference(Restaurant restaurant){
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("id",restaurant.id);
+        editor.putString("name",restaurant.name);
+        editor.putString("latitude", String.valueOf(restaurant.latitude));
+        editor.putString("longitude", String.valueOf(restaurant.longitude));
+        editor.putString("type", String.valueOf(restaurant.type));
+        editor.putString("contact_number",restaurant.contact_number);
+        editor.putString("street_name",restaurant.street_name);
+        editor.putString("city_name",restaurant.city_name);
+        editor.putString("province_name",restaurant.provice_name);
+        editor.putString("code",restaurant.code);
+        editor.commit();
+    }
+
+
+
+
 
     /**
      * THE FUNCTION CHECKS LOGGED IN USER BY REFERENCING BY ID OF A USER
