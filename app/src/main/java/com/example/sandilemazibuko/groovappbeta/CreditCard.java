@@ -44,9 +44,22 @@ public class CreditCard extends AppCompatActivity {
          */
         userDatabase = new LocalStorage(this);
 
-        String user_id_loggein = userDatabase.sharedPreferences.getString("user_id", "");
-        String fullnames = userDatabase.sharedPreferences.getString("user_name","") + " " +
-                userDatabase.sharedPreferences.getString("user_surname","");
+        String current_user_id = "";
+        String current_full_names = "";
+
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            current_user_id = extras.getString("current_user_id");
+            current_full_names = extras.getString("current_full_names");
+        }
+
+
+
+        int curr_user_id = Integer.parseInt(current_user_id);
+
+        String user_id_loggein =  String.valueOf(curr_user_id);
+
+        String fullnames = current_full_names;
         disUserid = (TextView) findViewById(R.id.disUserid);
         disUserNames = (TextView) findViewById(R.id.disUserName);
 
@@ -71,10 +84,19 @@ public class CreditCard extends AppCompatActivity {
                     if(!cvv.equals("")){
                         if(!exYear.equals("")){
 
+                            String current_user_id = "";
+                            String current_full_names = "";
+
+                            Bundle extras = getIntent().getExtras();
+                            if (extras != null) {
+                                current_user_id = extras.getString("current_user_id");
+                                current_full_names = extras.getString("current_full_names");
+                            }
+
+
                             userDatabase = new LocalStorage(CreditCard.this);
-                            String user_id_loggein = userDatabase.sharedPreferences.getString("user_id", "");
-                            String fullnames = userDatabase.sharedPreferences.getString("user_name","") + " " +
-                                    userDatabase.sharedPreferences.getString("user_surname","");
+                            String user_id_loggein = current_user_id;
+                            String fullnames = current_full_names;
 
                             String[] myTaskParams = {user_id_loggein,fullnames,pan,cvv,exYear};
                             new AddCreditCard().execute(myTaskParams);

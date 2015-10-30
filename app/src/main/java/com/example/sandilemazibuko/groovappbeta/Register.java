@@ -21,10 +21,12 @@ import com.squareup.okhttp.Request;
 import com.squareup.okhttp.RequestBody;
 import com.squareup.okhttp.Response;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.concurrent.ExecutionException;
 
 public class Register extends AppCompatActivity {
 
@@ -89,9 +91,51 @@ public class Register extends AppCompatActivity {
                                                 if(!spType.getSelectedItem().toString().equals("None")) {
                                                     if(!cellphone.equals("")){
                                                         if(isOnline()){
+//                                                            String current_user_id = null;
+//                                                            try {
+//                                                                current_user_id = new Get_Last_Record().execute().get();
+//                                                            } catch (InterruptedException e) {
+//                                                                e.printStackTrace();
+//                                                            } catch (ExecutionException e) {
+//                                                                e.printStackTrace();
+//                                                            }
+//
+//                                                            Toast.makeText(Register.this, current_user_id, Toast.LENGTH_SHORT).show();
+
+
                                                             new RegisterTask().execute();
 
-                                                            String[] myTaskParams = {name,surname,email};
+                                                            JSONObject current_object = null;
+                                                            try {
+                                                                current_object = new Get_Last_Record().execute().get();
+                                                            } catch (InterruptedException e) {
+                                                                e.printStackTrace();
+                                                            } catch (ExecutionException e) {
+                                                                e.printStackTrace();
+                                                            }
+
+                                                            JSONArray Jarray = null;
+
+                                                            try {
+                                                                Jarray = current_object.getJSONArray("user");
+                                                            } catch (JSONException e) {
+                                                                e.printStackTrace();
+                                                            }
+                                                            JSONObject object = null;
+                                                            try {
+                                                                object = Jarray.getJSONObject(0);
+                                                            } catch (JSONException e) {
+                                                                e.printStackTrace();
+                                                            }
+
+                                                            String current_user_id = "";
+                                                            try {
+                                                                current_user_id = object.getString("user_id");
+                                                            } catch (JSONException e) {
+                                                                e.printStackTrace();
+                                                            }
+
+                                                            String[] myTaskParams = {name,surname,email,current_user_id};
 
                                                             new EmailConfirm().execute(myTaskParams);
                                                         }else{
@@ -140,12 +184,13 @@ public class Register extends AppCompatActivity {
         @Override
         protected Void doInBackground(String... params) {
 
-            String url = "http://groovapp.msentri.co.za/email.php";
+            String url = "http://groovapp.codist.co.za/email.php";
 
 
             String name = params[0];
             String surname = params[1];
             String email = params[2];
+            String user_id = params[3];
 
             OkHttpClient client = new OkHttpClient();
 
@@ -153,6 +198,7 @@ public class Register extends AppCompatActivity {
                     .add("name", name)
                     .add("surname", surname)
                     .add("email", email)
+                    .add("user_id",user_id)
                     .build();
 
             Request request = new Request.Builder()
@@ -224,13 +270,82 @@ public class Register extends AppCompatActivity {
                 if(result.equals("Email Address taken already")){
                     Toast.makeText(Register.this, result, Toast.LENGTH_LONG).show();
                 }else {
-                    Intent intent = new Intent(Register.this, CreditCard.class);
-                    startActivity(intent);
+
+                    try {
+
+                        JSONObject current_object = new Get_Last_Record().execute().get();
+
+                        JSONArray Jarray = null;
+
+                        Jarray = current_object.getJSONArray("user");
+                        JSONObject object = Jarray.getJSONObject(0);
+
+
+                        String current_user_id = object.getString("user_id");
+                        String current_full_names = object.getString("user_first_name") +  " " + object.getString("user_surname");
+                        //Toast.makeText(Register.this, current_user_id, Toast.LENGTH_SHORT).show();
+
+                        Intent intent = new Intent(Register.this, CreditCard.class);
+                        intent.putExtra("current_user_id", current_user_id);
+                        intent.putExtra("current_full_names", current_full_names);
+                        startActivity(intent);
+
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    } catch (ExecutionException e) {
+                        e.printStackTrace();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
                 }
                 //Toast.makeText(Register.this, result, Toast.LENGTH_LONG).show();
             }else{
                 Toast.makeText(Register.this, result, Toast.LENGTH_LONG).show();
             }
+        }
+    }
+
+
+    private class Get_Last_Record extends AsyncTask<String,String,JSONObject>{
+
+        @Override
+        protected JSONObject doInBackground(String... params) {
+
+            String url = "http://groovapp.codist.co.za/get_last_record.php";
+
+            OkHttpClient client = new OkHttpClient();
+
+            Request request = new Request.Builder()
+                    .url(url)
+                    .build();
+
+            Response response = null;
+            JSONArray Jarray = null;
+
+            JSONObject Jobject = null;
+
+            String current_user_id  = "";
+            try {
+                response = client.newCall(request).execute();
+                String StringRespons = response.body().string();
+                Jobject = new JSONObject(StringRespons);
+//
+//                Jarray = Jobject.getJSONArray("user");
+//
+//                JSONObject object = Jarray.getJSONObject(0);
+//
+//
+//
+//                current_user_id = object.getString("user_id");
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            return Jobject;
         }
     }
 
