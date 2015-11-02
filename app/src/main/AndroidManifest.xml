@@ -25,13 +25,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Login"></activity>
-        <activity android:name=".Register"></activity>
+        <activity android:name=".Login" />
+        <activity android:name=".Register" />
         <activity
             android:name=".Profile"
             android:label="@string/title_activity_profile"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity android:name=".CreditCard"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".CreditCard" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -46,10 +46,11 @@
 
         <activity
             android:name=".MapsActivity"
-            android:label="@string/title_activity_maps"></activity>
-        <activity android:name=".RestaurantsModal"
-            android:theme="@style/AppTheme.CustomThem"
-            ></activity>
+            android:label="@string/title_activity_maps" />
+        <activity
+            android:name=".RestaurantsModal"
+            android:theme="@style/AppTheme.CustomThem" />
+        <activity android:name=".ForgotPassword"></activity>
     </application>
 
 </manifest>

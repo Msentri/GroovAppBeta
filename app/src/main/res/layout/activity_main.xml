@@ -4,38 +4,40 @@
     android:layout_height="match_parent" tools:context=".MainActivity"
     android:orientation="vertical"
     android:gravity="center_horizontal"
-    android:background="#000">
+    android:background="#000"
+    android:weightSum="1">
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="wrap_content"
-        android:layout_height="218dp"
-        android:background="@drawable/drinkpeople"></LinearLayout>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="GroovApp"
-        android:id="@+id/textView" />
+        android:layout_height="362dp"
+        android:background="@drawable/home_bg"
+        android:layout_weight="0.30"></LinearLayout>
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal">
+        android:gravity="center_horizontal"
+        android:layout_marginTop="12dp"
+        android:padding="20dp">
 
         <Button
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="53dp"
             android:text="Login"
-            android:id="@+id/btnLogin" />
+            android:id="@+id/btnLogin"
+            android:background="@drawable/groovapp_button"
+            android:layout_marginBottom="8dp"
+            android:textColor="#fff" />
 
         <Button
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="53dp"
             android:text="Register"
-            android:id="@+id/btnRegister" />
+            android:id="@+id/btnRegister"
+            android:background="@drawable/groovapp_button"
+            android:textColor="#fff" />
     </LinearLayout>
 
 </LinearLayout>
