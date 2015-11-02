@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" tools:context=".MainActivity"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:background="#000"
+    android:weightSum="1">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="362dp"
+        android:background="@drawable/home_bg"
+        android:layout_weight="0.30"></LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="12dp"
+        android:padding="20dp">
+
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="53dp"
+            android:text="Login"
+            android:id="@+id/btnLogin"
+            android:background="@drawable/groovapp_button"
+            android:layout_marginBottom="8dp"
+            android:textColor="#fff" />
+
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="53dp"
+            android:text="Register"
+            android:id="@+id/btnRegister"
+            android:background="@drawable/groovapp_button"
+            android:textColor="#fff" />
+    </LinearLayout>
+
+</LinearLayout>
+<!-- From: file:/Users/msentri/AndroidStudioProjects/DevApp/GroovAppBeta/app/src/main/res/layout/activity_main.xml -->
