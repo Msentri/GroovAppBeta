@@ -43,6 +43,8 @@ public class Register extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         /**
          * DATE OF BIRTH AREA.....
          */
@@ -177,6 +179,11 @@ public class Register extends AppCompatActivity {
 
             }
         });
+    }
+    @Override
+    public boolean onSupportNavigateUp(){
+        finish();
+        return true;
     }
 
     private class EmailConfirm extends AsyncTask<String, String, Void>{

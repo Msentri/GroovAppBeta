@@ -67,6 +67,7 @@
         <activity
             android:name="com.example.sandilemazibuko.groovappbeta.RestaurantsModal"
             android:theme="@style/AppTheme.CustomThem" />
+        <activity android:name="com.example.sandilemazibuko.groovappbeta.ForgotPassword" />
         <!-- Include the AdActivity and InAppPurchaseActivity configChanges and themes. -->
         <activity
             android:name="com.google.android.gms.ads.AdActivity"

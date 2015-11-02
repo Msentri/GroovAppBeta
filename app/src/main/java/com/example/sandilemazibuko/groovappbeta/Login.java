@@ -53,6 +53,8 @@ public class Login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         userDatabase = new LocalStorage(this);
 
         txtemail = (EditText) findViewById(R.id.txtemail);
@@ -63,7 +65,7 @@ public class Login extends AppCompatActivity {
 
         img = (ImageView)findViewById(R.id.imgImage);
 
-        new LoadImage().execute("https://m1.behance.net/rendition/modules/83055723/disp/729ebe0c689023040b7eb03fe48e7792.png");
+        //new LoadImage().execute("https://m1.behance.net/rendition/modules/83055723/disp/729ebe0c689023040b7eb03fe48e7792.png");
 
         login.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -100,6 +102,21 @@ public class Login extends AppCompatActivity {
             }
         });
 
+        TextView txtResetPassword  = (TextView) findViewById(R.id.txtResetPassword);
+        txtResetPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Login.this, ForgotPassword.class);
+                startActivity(intent);
+            }
+        });
+
+    }
+
+    @Override
+    public boolean onSupportNavigateUp(){
+        finish();
+        return true;
     }
 
     protected boolean isOnline() {
