@@ -27,9 +27,14 @@
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="141dp"
-            android:background="@drawable/drinkpeople"
             android:layout_weight="0.09"
-            android:layout_marginTop="8dp"></LinearLayout>
+            android:layout_marginTop="8dp">
+
+            <ImageView
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:id="@+id/res_image" />
+        </LinearLayout>
 
         <LinearLayout
             android:orientation="vertical"
@@ -159,7 +164,7 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:text="is simply dummy text of the printing and typesetting industry. Lorem Ipsumis simply dummy text of the printing and typesetting industry. Lorem Ipsumis simply dummy text of the printing and typesetting industry. Lorem Ipsum"
-                android:id="@+id/textView16"
+                android:id="@+id/introContent"
                 android:textColor="#fff" />
         </LinearLayout>
 

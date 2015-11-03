@@ -14,6 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.TextView;
 
 public class Profile extends AppCompatActivity
@@ -74,6 +75,15 @@ public class Profile extends AppCompatActivity
         txtname.setText(USER_FULL_NAMES);
         TextView txtemailProfile = (TextView) findViewById(R.id.txtemailProfile);
         txtemailProfile.setText(EMAIL);
+
+        Button myMapButton = (Button) findViewById(R.id.myMapButton);
+        myMapButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Profile.this, MapsActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -125,8 +135,7 @@ public class Profile extends AppCompatActivity
         } else if (id == R.id.nav_slideshow) {
 
         } else if (id == R.id.nav_manage) {
-            Intent intent = new Intent(Profile.this, MapsActivity.class);
-            startActivity(intent);
+
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

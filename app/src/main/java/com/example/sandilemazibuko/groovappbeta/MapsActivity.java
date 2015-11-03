@@ -7,6 +7,8 @@ import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -34,7 +36,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     private GoogleMap mMap;
 
-    public static final int DEFAULT_ZOOM = 6;
+    public static final int DEFAULT_ZOOM = 10;
 
 
     public static JSONObject titleSandile = null;
@@ -47,13 +49,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
-
-
-
         setContentView(R.layout.activity_maps);
-
-
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -61,8 +57,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             JSONObject sandile = new RequestRestaurants().execute().get();
 
             titleSandile = sandile;
-
-
 
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -74,8 +68,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-
-
     }
 
     @Override
@@ -83,8 +75,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         finish();
         return true;
     }
-
-
     /**
      * Manipulates the map once available.
      * This callback is triggered when the map is ready to be used.
@@ -119,6 +109,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 String city = object.getString("city");
                 final String province = object.getString("province");
 
+
                 double lati = Double.parseDouble(latitude);
                 double longLat = Double.parseDouble(longitude);
 
@@ -135,50 +126,15 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
                     @Override
                     public boolean onMarkerClick(Marker marker) {
-//                        Toast.makeText(MapsActivity.this, marker.getTitle() + " " + marker.getPosition().latitude
-//                                , Toast.LENGTH_SHORT).show();
 
-                        //Toast.makeText(MapsActivity.this, marker.getTitle(), Toast.LENGTH_LONG).show();
-
-
-
-                        JSONArray Jarray = null;
-
-                        String restaurant_province  = "";
-                        try {
-                            String[] myTaskParams = {marker.getSnippet()};
-
-
-                            JSONObject PlaceDetails =  new RequestRestaurantsDetails().execute(myTaskParams).get();
-                            Jarray = PlaceDetails.getJSONArray("places");
-                            JSONObject object = Jarray.getJSONObject(0);
-
-
-
-                            restaurant_province = object.getString("province");
-
-                           
-
-
-
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        } catch (ExecutionException e) {
-                            e.printStackTrace();
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                        Intent intent = new Intent(getApplicationContext(), RestaurantsModal.class);
-                        intent.putExtra("Place", marker.getTitle());
-                        intent.putExtra("province",restaurant_province);
-                        startActivity(intent);
+                            Intent intent = new Intent(getApplicationContext(), RestaurantsModal.class);
+                            intent.putExtra("Place", marker.getTitle());
+                            intent.putExtra("RES_ID_NUMBER",marker.getSnippet());
+                            startActivity(intent);
 
                         return false;
                     }
                 });
-
-
-
                 mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney, DEFAULT_ZOOM));
             }
         } catch (JSONException e) {
@@ -197,9 +153,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         protected void onPreExecute() {
             super.onPreExecute();
             pDialog = new ProgressDialog(MapsActivity.this);
-            pDialog.setMessage("Please wait loading Restaurants  ....");
+            pDialog.setMessage("Please wait loading Restaurants....");
             pDialog.show();
-
         }
 
         @Override
@@ -235,55 +190,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
     }
 
-    private class RequestRestaurantsDetails extends AsyncTask <String, String, JSONObject>{
 
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            pDialog = new ProgressDialog(MapsActivity.this);
-            pDialog.setMessage("Please wait loading Restaurants Details...");
-            pDialog.show();
-
-        }
-
-
-        @Override
-        protected JSONObject doInBackground(String... params) {
-
-            OkHttpClient client = new OkHttpClient();
-
-            String url = "http://groovapp.codist.co.za/get_res_by_id.php";
-
-            RequestBody formBody = new FormEncodingBuilder()
-                    .add("email", params[0])
-                    .build();
-
-            Request request = new Request.Builder()
-                    .url(url)
-                    .post(formBody)
-                    .build();
-
-            Response response = null;
-            JSONObject Jobject = null;
-            try {
-                response = client.newCall(request).execute();
-                String StringRespons = response.body().string();
-                Jobject = new JSONObject(StringRespons);
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-
-            return Jobject;
-        }
-
-        @Override
-        protected void onPostExecute(JSONObject result) {
-            pDialog.dismiss();
-        }
-    }
 
 
 
