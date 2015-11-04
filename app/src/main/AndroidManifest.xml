@@ -52,6 +52,7 @@
             android:name=".RestaurantsModal"
             android:theme="@style/AppTheme.CustomThem" />
         <activity android:name=".ForgotPassword" />
+        <activity android:name=".QRCode"></activity>
     </application>
 
 </manifest>

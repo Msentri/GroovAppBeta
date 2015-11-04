@@ -2,39 +2,11 @@
 <items version="2" >
 
     <item
-        jar="/Users/msentri/AndroidStudioProjects/DevApp/GroovAppBeta/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.0.1/jars/libs/internal_impl-23.0.1.jar"
+        jar="/Users/msentri/.gradle/caches/modules-2/files-2.1/com.google.zxing/core/3.0.0/ee7d9bc1ce7f847f6de8d089c866831effe8d415/core-3.0.0.jar"
         jumboMode="false"
         revision="23.0.1"
-        sha1="aa92916125166649d8ad4ba3940c3dd7515596d3">
-        <dex dex="/Users/msentri/AndroidStudioProjects/DevApp/GroovAppBeta/app/build/intermediates/pre-dexed/debug/internal_impl-23.0.1-3e72fc9a28e72af92ccbe59f109887c57cf1a536.jar" />
-    </item>
-    <item
-        jar="/Users/msentri/AndroidStudioProjects/DevApp/GroovAppBeta/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.1/jars/classes.jar"
-        jumboMode="false"
-        revision="23.0.1"
-        sha1="d86429b0f0b3f3cafbeb78dda1b9d89119ccb05d">
-        <dex dex="/Users/msentri/AndroidStudioProjects/DevApp/GroovAppBeta/app/build/intermediates/pre-dexed/debug/classes-cd46bb377fdf4bca4b4ff042eada65549b078475.jar" />
-    </item>
-    <item
-        jar="/Users/msentri/Android Development/adt-bundle-mac-x86_64-20140702/sdk/extras/android/m2repository/com/android/support/support-annotations/23.0.1/support-annotations-23.0.1.jar"
-        jumboMode="false"
-        revision="23.0.1"
-        sha1="1fce89a6428c51467090d7f424e4c9c3dbd55f7e">
-        <dex dex="/Users/msentri/AndroidStudioProjects/DevApp/GroovAppBeta/app/build/intermediates/pre-dexed/debug/support-annotations-23.0.1-42f56eb875ef7880a7f6202dbd6e6d8913f22027.jar" />
-    </item>
-    <item
-        jar="/Users/msentri/AndroidStudioProjects/DevApp/GroovAppBeta/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.0.1/jars/classes.jar"
-        jumboMode="false"
-        revision="23.0.1"
-        sha1="c31e21b53ff2f74664e498248d01453a32e32d48">
-        <dex dex="/Users/msentri/AndroidStudioProjects/DevApp/GroovAppBeta/app/build/intermediates/pre-dexed/debug/classes-79f77c6013b9748472abdbb0858ecc0be22229ce.jar" />
-    </item>
-    <item
-        jar="/Users/msentri/AndroidStudioProjects/DevApp/GroovAppBeta/app/build/intermediates/exploded-aar/com.android.support/design/23.0.1/jars/classes.jar"
-        jumboMode="false"
-        revision="23.0.1"
-        sha1="e5c61a3169221a89654ffcaaed47bba51cf071ad">
-        <dex dex="/Users/msentri/AndroidStudioProjects/DevApp/GroovAppBeta/app/build/intermediates/pre-dexed/debug/classes-44a4fe7b5e5b19d2fdf23842a645cf6bf2d48c7b.jar" />
+        sha1="ee7d9bc1ce7f847f6de8d089c866831effe8d415">
+        <dex dex="/Users/msentri/AndroidStudioProjects/DevApp/GroovAppBeta/app/build/intermediates/pre-dexed/debug/core-3.0.0-2029a028475fefd37372f18df5f046f29cdfe6b2.jar" />
     </item>
 
 </items>

@@ -123,7 +123,8 @@ public class RestaurantsModal extends AppCompatActivity {
         attendVanue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(RestaurantsModal.this, "Attend", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(RestaurantsModal.this, QRCode.class);
+                startActivity(intent);
             }
         });
 

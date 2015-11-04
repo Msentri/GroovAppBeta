@@ -1,6 +1,6 @@
 -- Merging decision tree log ---
 manifest
-ADDED from /Users/msentri/AndroidStudioProjects/DevApp/GroovAppBeta/app/src/main/AndroidManifest.xml:2:1-57:12
+ADDED from /Users/msentri/AndroidStudioProjects/DevApp/GroovAppBeta/app/src/main/AndroidManifest.xml:2:1-58:12
 	xmlns:android
 		ADDED from /Users/msentri/AndroidStudioProjects/DevApp/GroovAppBeta/app/src/main/AndroidManifest.xml:2:11-69
 	package
@@ -62,7 +62,7 @@ MERGED from [com.google.android.gms:play-services-maps:8.1.0] /Users/msentri/And
 	android:name
 		ADDED from /Users/msentri/AndroidStudioProjects/DevApp/GroovAppBeta/app/src/main/AndroidManifest.xml:9:22-78
 application
-ADDED from /Users/msentri/AndroidStudioProjects/DevApp/GroovAppBeta/app/src/main/AndroidManifest.xml:16:5-55:19
+ADDED from /Users/msentri/AndroidStudioProjects/DevApp/GroovAppBeta/app/src/main/AndroidManifest.xml:16:5-56:19
 MERGED from [com.android.support:appcompat-v7:23.0.1] /Users/msentri/AndroidStudioProjects/DevApp/GroovAppBeta/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.1/AndroidManifest.xml:22:5-20
 MERGED from [com.android.support:support-v4:23.0.1] /Users/msentri/AndroidStudioProjects/DevApp/GroovAppBeta/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.0.1/AndroidManifest.xml:22:5-20
 MERGED from [com.android.support:cardview-v7:23.0.1] /Users/msentri/AndroidStudioProjects/DevApp/GroovAppBeta/app/build/intermediates/exploded-aar/com.android.support/cardview-v7/23.0.1/AndroidManifest.xml:22:5-20
@@ -243,6 +243,10 @@ activity#com.example.sandilemazibuko.groovappbeta.ForgotPassword
 ADDED from /Users/msentri/AndroidStudioProjects/DevApp/GroovAppBeta/app/src/main/AndroidManifest.xml:54:9-52
 	android:name
 		ADDED from /Users/msentri/AndroidStudioProjects/DevApp/GroovAppBeta/app/src/main/AndroidManifest.xml:54:19-49
+activity#com.example.sandilemazibuko.groovappbeta.QRCode
+ADDED from /Users/msentri/AndroidStudioProjects/DevApp/GroovAppBeta/app/src/main/AndroidManifest.xml:55:9-53
+	android:name
+		ADDED from /Users/msentri/AndroidStudioProjects/DevApp/GroovAppBeta/app/src/main/AndroidManifest.xml:55:19-41
 uses-sdk
 INJECTED from /Users/msentri/AndroidStudioProjects/DevApp/GroovAppBeta/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
 MERGED from [com.android.support:appcompat-v7:23.0.1] /Users/msentri/AndroidStudioProjects/DevApp/GroovAppBeta/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.1/AndroidManifest.xml:20:5-43
@@ -459,7 +463,7 @@ MERGED from [com.google.android.gms:play-services-maps:8.1.0] /Users/msentri/And
 	android:glEsVersion
 		ADDED from [com.google.android.gms:play-services-maps:8.1.0] /Users/msentri/AndroidStudioProjects/DevApp/GroovAppBeta/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-maps/8.1.0/AndroidManifest.xml:24:8-40
 android:uses-permission#android.permission.READ_EXTERNAL_STORAGE
-IMPLIED from /Users/msentri/AndroidStudioProjects/DevApp/GroovAppBeta/app/src/main/AndroidManifest.xml:2:1-57:12 reason: com.google.android.gms.maps requested WRITE_EXTERNAL_STORAGE
+IMPLIED from /Users/msentri/AndroidStudioProjects/DevApp/GroovAppBeta/app/src/main/AndroidManifest.xml:2:1-58:12 reason: com.google.android.gms.maps requested WRITE_EXTERNAL_STORAGE
 uses-permission#com.google.android.c2dm.permission.RECEIVE
 ADDED from [com.google.android.gms:play-services-gcm:8.1.0] /Users/msentri/AndroidStudioProjects/DevApp/GroovAppBeta/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-gcm/8.1.0/AndroidManifest.xml:21:5-82
 	android:name

@@ -28,5 +28,6 @@ dependencies {
     compile 'com.android.support:design:23.0.1'
     compile 'com.google.android.gms:play-services:8.1.0'
     compile 'de.hdodenhof:circleimageview:2.0.0'
+    compile 'com.google.zxing:core:3.0.0'
 
 }
