@@ -1,7 +1,12 @@
 package com.example.sandilemazibuko.groovappbeta;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
@@ -9,6 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -19,6 +25,9 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.mapbox.mapboxsdk.annotations.Sprite;
+import com.mapbox.mapboxsdk.constants.Style;
+import com.mapbox.mapboxsdk.views.MapView;
 import com.squareup.okhttp.FormEncodingBuilder;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
@@ -32,7 +41,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.concurrent.ExecutionException;
 
-public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback {
+public class MapsActivity extends AppCompatActivity {
 
     private GoogleMap mMap;
 
@@ -45,6 +54,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     // Progress Dialog
     private ProgressDialog pDialog;
 
+    private MapView mapView = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,99 +64,113 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        try {
-            JSONObject sandile = new RequestRestaurants().execute().get();
+//        try {
+//            JSONObject sandile = new RequestRestaurants().execute().get();
+//
+//            titleSandile = sandile;
+//
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        } catch (ExecutionException e) {
+//            e.printStackTrace();
+//        }
 
-            titleSandile = sandile;
+        if(isOnline() == true){
+            /** Create a mapView and give it some properties */
+            mapView = (MapView) findViewById(R.id.mapview);
+            mapView.setStyleUrl(Style.DARK);
 
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
+
+            JSONArray Jarray = null;
+            try {
+                JSONObject sandile = new RequestRestaurants().execute().get();
+                Jarray = sandile.getJSONArray("places");
+
+                for(int x = 0; x < Jarray.length();x++){
+                    JSONObject object = Jarray.getJSONObject(x);
+
+                    final String restaurant_name = object.getString("restaurant_name");
+
+                    String latitude = object.getString("latitude");
+                    String longitude = object.getString("longitude");
+                    String place_id = object.getString("id");
+                    String type = object.getString("type");
+                    final String contact = object.getString("contact");
+                    String street = object.getString("street");
+                    String city = object.getString("city");
+                    final String province = object.getString("province");
+
+
+                    double lati = Double.parseDouble(latitude);
+                    double longLat = Double.parseDouble(longitude);
+
+                    com.mapbox.mapboxsdk.geometry.LatLng sydney = new com.mapbox.mapboxsdk.geometry.LatLng(lati,longLat);
+
+
+
+
+
+                    com.mapbox.mapboxsdk.annotations.MarkerOptions myMarker = new com.mapbox.mapboxsdk.annotations.MarkerOptions()
+                            .position(sydney)
+                            .title(restaurant_name)
+                            .snippet(place_id)
+                            ;
+                    mapView.addMarker(myMarker);
+
+
+                    mapView.setOnMarkerClickListener(new MapView.OnMarkerClickListener() {
+                        @Override
+                        public boolean onMarkerClick(com.mapbox.mapboxsdk.annotations.Marker marker) {
+
+                            Intent intent = new Intent(getApplicationContext(), RestaurantsModal.class);
+                            intent.putExtra("Place", marker.getTitle());
+                            intent.putExtra("RES_ID_NUMBER", marker.getSnippet());
+                            startActivity(intent);
+                            return false;
+                        }
+                    });
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
+
+            mapView.setCenterCoordinate(new com.mapbox.mapboxsdk.geometry.LatLng(-26.1019238, 28.0230654));
+
+            mapView.setZoomLevel(9);
+            mapView.onCreate(savedInstanceState);
+        }else{
+            Toast.makeText(MapsActivity.this, "Please Be Connected to internet.", Toast.LENGTH_SHORT).show();
         }
 
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
+        ImageView imgHome = (ImageView)findViewById(R.id.imgHome);
+        imgHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), Profile.class);
+                startActivity(intent);
+            }
+        });
+
+    }
+
+    protected boolean isOnline() {
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        if (netInfo != null && netInfo.isConnectedOrConnecting()) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override
     public boolean onSupportNavigateUp(){
         finish();
         return true;
-    }
-    /**
-     * Manipulates the map once available.
-     * This callback is triggered when the map is ready to be used.
-     * This is where we can add markers or lines, add listeners or move the camera. In this case,
-     * we just add a marker near Sydney, Australia.
-     * If Google Play services is not installed on the device, the user will be prompted to install
-     * it inside the SupportMapFragment. This method will only be triggered once the user has
-     * installed Google Play services and returned to the app.
-     */
-    @Override
-    public void onMapReady(GoogleMap googleMap) {
-
-        mMap = googleMap;
-        mMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
-
-        JSONArray Jarray = null;
-        try {
-            JSONObject sandile = new RequestRestaurants().execute().get();
-            Jarray = sandile.getJSONArray("places");
-
-            for(int x = 0; x < Jarray.length();x++){
-                JSONObject object = Jarray.getJSONObject(x);
-
-                final String restaurant_name = object.getString("restaurant_name");
-
-                String latitude = object.getString("latitude");
-                String longitude = object.getString("longitude");
-                String place_id = object.getString("id");
-                String type = object.getString("type");
-                final String contact = object.getString("contact");
-                String street = object.getString("street");
-                String city = object.getString("city");
-                final String province = object.getString("province");
-
-
-                double lati = Double.parseDouble(latitude);
-                double longLat = Double.parseDouble(longitude);
-
-                // Add a marker in Sydney and move the camera
-                LatLng sydney = new LatLng(lati, longLat);
-
-                final MarkerOptions myMarker = new MarkerOptions()
-                        .position(sydney)
-                        .title(restaurant_name)
-                        .snippet(place_id)
-                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.map));
-                mMap.addMarker(myMarker);
-
-                mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
-                    @Override
-                    public boolean onMarkerClick(Marker marker) {
-
-                            Intent intent = new Intent(getApplicationContext(), RestaurantsModal.class);
-                            intent.putExtra("Place", marker.getTitle());
-                            intent.putExtra("RES_ID_NUMBER",marker.getSnippet());
-                            startActivity(intent);
-
-                        return false;
-                    }
-                });
-                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney, DEFAULT_ZOOM));
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
-
-        mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
     }
 
     private class RequestRestaurants extends AsyncTask <String, String, JSONObject>{
@@ -188,6 +213,30 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         protected void onPostExecute(JSONObject result) {
             pDialog.dismiss();
         }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mapView.onStart();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mapView.onStop();
+    }
+
+    @Override
+    public void onPause()  {
+        super.onPause();
+        mapView.onPause();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mapView.onResume();
     }
 
 

@@ -7,21 +7,25 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:theme="@style/ThemeOverlay.AppCompat.Dark" android:orientation="vertical"
-    android:gravity="bottom">
+    android:gravity="center_horizontal|bottom"
+    android:weightSum="1">
 
     <ImageView
-        android:layout_width="59dp"
+        android:layout_width="189dp"
         android:layout_height="59dp"
         android:id="@+id/imageView"
-        android:src="@drawable/account_pic" />
+        android:src="@drawable/account_pic"
+        android:layout_weight="0.99"
+        android:background="#fff" />
 
-    <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
         android:paddingTop="@dimen/nav_header_vertical_spacing" android:text="Sandile Mazibuko"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:id="@+id/txtnamedisplay" />
 
     <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-        android:text="msentri@gmail.com" android:id="@+id/txtemailProfile" />
+        android:text="msentri@gmail.com" android:id="@+id/txtemailProfile"
+        android:textColor="#fff" />
 
 </LinearLayout>
 <!-- From: file:/Users/msentri/AndroidStudioProjects/DevApp/GroovAppBeta/app/src/main/res/layout/nav_header_profile.xml -->
