@@ -3,10 +3,14 @@
 
     <group android:checkableBehavior="single">
         <item android:id="@+id/upgrade_membership" android:icon="@android:drawable/ic_menu_camera"
-            android:title="Upgrade Membership" />
+            android:title="Upgrade Membership"
+            android:textColor="#fff" />
+            />
         <item android:id="@+id/account_settings" android:icon="@android:drawable/ic_menu_camera"
             android:title="Account Settings" />
     </group>
+
+
 
 
 
