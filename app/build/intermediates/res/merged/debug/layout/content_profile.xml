@@ -47,13 +47,13 @@ tools:context="com.example.sandilemazibuko.groovappbeta.Profile"
                 <ImageView
                     android:layout_width="70dp"
                     android:layout_height="fill_parent"
-                    android:id="@+id/imageView7"
+                    android:id="@+id/btnFilter"
                     android:src="@drawable/first_home" />
 
                 <ImageView
                     android:layout_width="70dp"
                     android:layout_height="fill_parent"
-                    android:id="@+id/imageView8"
+                    android:id="@+id/imageUber"
                     android:src="@drawable/send_home" />
 
                 <ImageView
@@ -65,13 +65,13 @@ tools:context="com.example.sandilemazibuko.groovappbeta.Profile"
                 <ImageView
                     android:layout_width="70dp"
                     android:layout_height="fill_parent"
-                    android:id="@+id/imageView10"
+                    android:id="@+id/imageDrinks"
                     android:src="@drawable/third_home" />
 
                 <ImageView
                     android:layout_width="70dp"
                     android:layout_height="fill_parent"
-                    android:id="@+id/imageView11"
+                    android:id="@+id/imageSearch"
                     android:src="@drawable/fourth_home" />
             </TableRow>
         </TableLayout>
