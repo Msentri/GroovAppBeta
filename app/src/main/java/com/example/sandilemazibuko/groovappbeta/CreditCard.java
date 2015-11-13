@@ -26,7 +26,7 @@ public class CreditCard extends AppCompatActivity {
 
 
     EditText txtPAN,txtCVV,txtExpYear;
-    TextView disUserid,disUserNames;
+    TextView display_user_id,disUserNames;
     Button btnCreditCard;
 
     LocalStorage userDatabase;
@@ -57,15 +57,15 @@ public class CreditCard extends AppCompatActivity {
 
         int curr_user_id = Integer.parseInt(current_user_id);
 
-        String user_id_loggein =  String.valueOf(curr_user_id);
+        String user_id_log_in =  String.valueOf(curr_user_id);
 
-        String fullnames = current_full_names;
-        disUserid = (TextView) findViewById(R.id.disUserid);
+        String full_names = current_full_names;
+        display_user_id = (TextView) findViewById(R.id.disUserid);
         disUserNames = (TextView) findViewById(R.id.disUserName);
 
-        String user_id_details = "User id : " + user_id_loggein;
-        String user_full_names_details = "User Card Holder : " + fullnames;
-        disUserid.setText(user_id_details);
+        String user_id_details = "User id : " + user_id_log_in;
+        String user_full_names_details = "User Card Holder : " + full_names;
+        display_user_id.setText(user_id_details);
         disUserNames.setText(user_full_names_details);
 
         txtPAN = (EditText) findViewById(R.id.txtPAN);
@@ -95,10 +95,10 @@ public class CreditCard extends AppCompatActivity {
 
 
                             userDatabase = new LocalStorage(CreditCard.this);
-                            String user_id_loggein = current_user_id;
-                            String fullnames = current_full_names;
+                            String user_id_log_in = current_user_id;
+                            String full_names = current_full_names;
 
-                            String[] myTaskParams = {user_id_loggein,fullnames,pan,cvv,exYear};
+                            String[] myTaskParams = {user_id_log_in,full_names,pan,cvv,exYear};
                             new AddCreditCard().execute(myTaskParams);
 
                             //Intent intent = new Intent(CreditCard.this, Profile.class);

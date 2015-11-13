@@ -10,7 +10,6 @@ import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -37,7 +36,7 @@ public class Login extends AppCompatActivity {
 
 
     Button login;
-    EditText txtemail,txtpassword;
+    EditText txt_email,txt_password;
 
 
     ImageView img;
@@ -57,8 +56,8 @@ public class Login extends AppCompatActivity {
 
         userDatabase = new LocalStorage(this);
 
-        txtemail = (EditText) findViewById(R.id.txtemail);
-        txtpassword = (EditText) findViewById(R.id.txtpassword);
+        txt_email = (EditText) findViewById(R.id.txtemail);
+        txt_password = (EditText) findViewById(R.id.txtpassword);
 
         login = (Button) findViewById(R.id.btnLoginUser);
 
@@ -70,8 +69,8 @@ public class Login extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String email = txtemail.getText().toString();
-                String password = txtpassword.getText().toString();
+                String email = txt_email.getText().toString();
+                String password = txt_password.getText().toString();
 
                 if(!email.equals("")){
                     if(!password.equals("")){
@@ -149,7 +148,6 @@ public class Login extends AppCompatActivity {
             OkHttpClient client = new OkHttpClient();
 
             String url = "http://groovapp.codist.co.za/get_user.php";
-
 
             RequestBody formBody = new FormEncodingBuilder()
                     .add("email", params[0])
