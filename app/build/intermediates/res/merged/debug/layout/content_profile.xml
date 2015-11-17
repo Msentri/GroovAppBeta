@@ -22,7 +22,9 @@ tools:context="com.example.sandilemazibuko.groovappbeta.Profile"
             android:id="@+id/mapview"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            mapbox:access_token="pk.eyJ1IjoibXNlbnRyaSIsImEiOiJjaWdpOHoxMmg4NW1rdXFtMm14ZHN5aDdyIn0.MnZ_4gAK9h1zQLBwkeV1zA"></com.mapbox.mapboxsdk.views.MapView>
+            mapbox:access_token="pk.eyJ1IjoibXNlbnRyaSIsImEiOiJjaWdpOHoxMmg4NW1rdXFtMm14ZHN5aDdyIn0.MnZ_4gAK9h1zQLBwkeV1zA"
+            app:style_url="mapbox://styles/mapbox/streets-v8"
+            ></com.mapbox.mapboxsdk.views.MapView>
     </RelativeLayout>
 
     <RelativeLayout

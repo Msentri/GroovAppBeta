@@ -25,7 +25,7 @@
 
         <LinearLayout
             android:orientation="horizontal"
-            android:layout_width="match_parent"
+            android:layout_width="fill_parent"
             android:layout_height="141dp"
             android:layout_weight="0.09"
             android:layout_marginTop="8dp">
@@ -35,6 +35,13 @@
                 android:layout_height="fill_parent"
                 android:id="@+id/res_image" />
         </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="5dp"
+            android:background="#f8aa1a"
+            android:layout_marginTop="0dp" />
 
         <LinearLayout
             android:orientation="vertical"
@@ -109,6 +116,7 @@
                 android:text="Free"
                 android:id="@+id/textView11"
                 android:textColor="#fff" />
+
         </LinearLayout>
 
         <LinearLayout
@@ -150,14 +158,21 @@
                 android:text="2"
                 android:id="@+id/textView15"
                 android:textColor="#fff" />
+
         </LinearLayout>
+
+        <RatingBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/ratingBar" />
 
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
-            android:layout_marginTop="12dp">
+            android:layout_marginTop="12dp"
+            android:weightSum="1">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -165,7 +180,8 @@
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:text="is simply dummy text of the printing and typesetting industry. Lorem Ipsumis simply dummy text of the printing and typesetting industry. Lorem Ipsumis simply dummy text of the printing and typesetting industry. Lorem Ipsum"
                 android:id="@+id/introContent"
-                android:textColor="#fff" />
+                android:textColor="#fff"
+                android:layout_weight="3.23" />
         </LinearLayout>
 
         <Button
@@ -173,5 +189,6 @@
             android:layout_height="wrap_content"
             android:text="Attend The Restaurant"
             android:id="@+id/buttonAttend" />
+
     </LinearLayout>
 </LinearLayout>

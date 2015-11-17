@@ -30,10 +30,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.GoogleMap;
+import com.mapbox.mapboxsdk.annotations.MarkerOptions;
+import com.mapbox.mapboxsdk.annotations.Sprite;
 import com.mapbox.mapboxsdk.constants.Style;
+import com.mapbox.mapboxsdk.geometry.LatLng;
 import com.mapbox.mapboxsdk.views.MapView;
+import com.squareup.okhttp.FormEncodingBuilder;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
+import com.squareup.okhttp.RequestBody;
 import com.squareup.okhttp.Response;
 
 import org.json.JSONArray;
@@ -63,13 +68,8 @@ public class Profile extends AppCompatActivity
     private MapView mapView = null;
 
     ListView list_place_type;
-    ArrayAdapter adapter1;
+    ArrayAdapter adapter1,adapter2;
     ArrayList place_type_results;
-
-
-
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,72 +80,155 @@ public class Profile extends AppCompatActivity
 
         userDatabase = new LocalStorage(this);
 
-        if(isOnline() == true){
-            /** Create a mapView and give it some properties */
-            mapView = (MapView) findViewById(R.id.mapview);
-            mapView.setStyleUrl(Style.DARK);
+        Bundle extras = getIntent().getExtras();
+        if (extras == null) {
+            if (isOnline() == true) {
+                /** Create a mapView and give it some properties */
+                mapView = (MapView) findViewById(R.id.mapview);
+                mapView.setStyleUrl(Style.DARK);
 
 
-            JSONArray Jarray = null;
-            try {
-                JSONObject sandile = new RequestRestaurants().execute().get();
-                Jarray = sandile.getJSONArray("places");
+                JSONArray Jarray = null;
+                try {
+                    String[] mainMap = {"main_map"};
 
-                for(int x = 0; x < Jarray.length();x++){
-                    JSONObject object = Jarray.getJSONObject(x);
+                    JSONObject sandile = new RequestRestaurants().execute(mainMap).get();
+                    Jarray = sandile.getJSONArray("places");
 
-                    final String restaurant_name = object.getString("restaurant_name");
+                    for (int x = 0; x < Jarray.length(); x++) {
+                        JSONObject object = Jarray.getJSONObject(x);
 
-                    String latitude = object.getString("latitude");
-                    String longitude = object.getString("longitude");
-                    String place_id = object.getString("id");
-                    String type = object.getString("type");
-                    final String contact = object.getString("contact");
-                    String street = object.getString("street");
-                    String city = object.getString("city");
-                    final String province = object.getString("province");
+                        final String restaurant_name = object.getString("restaurant_name");
 
-
-                    double lati = Double.parseDouble(latitude);
-                    double longLat = Double.parseDouble(longitude);
-
-                    com.mapbox.mapboxsdk.geometry.LatLng sydney = new com.mapbox.mapboxsdk.geometry.LatLng(lati,longLat);
-
-                    com.mapbox.mapboxsdk.annotations.MarkerOptions myMarker = new com.mapbox.mapboxsdk.annotations.MarkerOptions()
-                            .position(sydney)
-                            .title(restaurant_name)
-                            .snippet(place_id)
-                            ;
-                    mapView.addMarker(myMarker);
+                        String latitude = object.getString("latitude");
+                        String longitude = object.getString("longitude");
+                        String place_id = object.getString("id");
+                        String type = object.getString("type");
+                        final String contact = object.getString("contact");
+                        String street = object.getString("street");
+                        String city = object.getString("city");
+                        final String province = object.getString("province");
 
 
-                    mapView.setOnMarkerClickListener(new MapView.OnMarkerClickListener() {
-                        @Override
-                        public boolean onMarkerClick(com.mapbox.mapboxsdk.annotations.Marker marker) {
+                        double lati = Double.parseDouble(latitude);
+                        double longLat = Double.parseDouble(longitude);
 
-                            Intent intent = new Intent(getApplicationContext(), RestaurantsModal.class);
-                            intent.putExtra("Place", marker.getTitle());
-                            intent.putExtra("RES_ID_NUMBER", marker.getSnippet());
-                            startActivity(intent);
-                            return false;
-                        }
-                    });
+                        com.mapbox.mapboxsdk.geometry.LatLng sydney = new com.mapbox.mapboxsdk.geometry.LatLng(lati, longLat);
+
+                        com.mapbox.mapboxsdk.annotations.MarkerOptions myMarker = new com.mapbox.mapboxsdk.annotations.MarkerOptions()
+                                .position(sydney)
+                                .title(restaurant_name)
+                                .snippet(place_id);
+
+                        mapView.addMarker(myMarker);
+
+
+
+                        mapView.setOnMarkerClickListener(new MapView.OnMarkerClickListener() {
+                            @Override
+                            public boolean onMarkerClick(com.mapbox.mapboxsdk.annotations.Marker marker) {
+
+                                Intent intent = new Intent(getApplicationContext(), RestaurantsModal.class);
+                                intent.putExtra("Place", marker.getTitle());
+                                intent.putExtra("RES_ID_NUMBER", marker.getSnippet());
+                                startActivity(intent);
+                                return false;
+                            }
+                        });
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
                 }
-            } catch (JSONException e) {
-                e.printStackTrace();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } catch (ExecutionException e) {
-                e.printStackTrace();
+
+                mapView.setCenterCoordinate(new com.mapbox.mapboxsdk.geometry.LatLng(-26.1019238, 28.0230654));
+
+                mapView.setZoomLevel(9);
+                mapView.onCreate(savedInstanceState);
+
+                /** Create a mapView and give it some properties */
+            } else {
+                Toast.makeText(Profile.this, "Please Be Connected to internet.", Toast.LENGTH_SHORT).show();
             }
-
-            mapView.setCenterCoordinate(new com.mapbox.mapboxsdk.geometry.LatLng(-26.1019238, 28.0230654));
-
-            mapView.setZoomLevel(9);
-            mapView.onCreate(savedInstanceState);
         }else{
-            Toast.makeText(Profile.this, "Please Be Connected to internet.", Toast.LENGTH_SHORT).show();
+            if (isOnline() == true) {
+                /** Create a mapView and give it some properties */
+                mapView = (MapView) findViewById(R.id.mapview);
+                mapView.setStyleUrl(Style.DARK);
+
+                String placetypeid = extras.getString("place_type_id");
+
+
+                JSONArray Jarray = null;
+                try {
+                    String[] mainMap = {placetypeid};
+
+                    JSONObject sandile = new RequestRestaurants().execute(mainMap).get();
+                    Jarray = sandile.getJSONArray("places");
+
+                    for (int x = 0; x < Jarray.length(); x++) {
+                        JSONObject object = Jarray.getJSONObject(x);
+
+                        final String restaurant_name = object.getString("restaurant_name");
+
+                        String latitude = object.getString("latitude");
+                        String longitude = object.getString("longitude");
+                        String place_id = object.getString("id");
+                        String type = object.getString("type");
+                        final String contact = object.getString("contact");
+                        String street = object.getString("street");
+                        String city = object.getString("city");
+                        final String province = object.getString("province");
+
+
+                        double lati = Double.parseDouble(latitude);
+                        double longLat = Double.parseDouble(longitude);
+
+                        com.mapbox.mapboxsdk.geometry.LatLng sydney = new com.mapbox.mapboxsdk.geometry.LatLng(lati, longLat);
+
+                        com.mapbox.mapboxsdk.annotations.MarkerOptions myMarker = new com.mapbox.mapboxsdk.annotations.MarkerOptions()
+                                .position(sydney)
+                                .title(restaurant_name)
+                                .snippet(place_id);
+                        mapView.addMarker(myMarker);
+
+
+                        mapView.setOnMarkerClickListener(new MapView.OnMarkerClickListener() {
+                            @Override
+                            public boolean onMarkerClick(com.mapbox.mapboxsdk.annotations.Marker marker) {
+
+                                Intent intent = new Intent(getApplicationContext(), RestaurantsModal.class);
+                                intent.putExtra("Place", marker.getTitle());
+                                intent.putExtra("RES_ID_NUMBER", marker.getSnippet());
+                                startActivity(intent);
+                                return false;
+                            }
+                        });
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                }
+
+                mapView.setCenterCoordinate(new com.mapbox.mapboxsdk.geometry.LatLng(-26.1019238, 28.0230654));
+
+                mapView.setZoomLevel(9);
+                mapView.onCreate(savedInstanceState);
+
+                /** Create a mapView and give it some properties */
+            } else {
+                Toast.makeText(Profile.this, "Please Be Connected to internet.", Toast.LENGTH_SHORT).show();
+            }
         }
+
+
+
 
         ImageView imgHome = (ImageView)findViewById(R.id.imgHome);
         imgHome.setOnClickListener(new View.OnClickListener() {
@@ -227,24 +310,22 @@ public class Profile extends AppCompatActivity
                             new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    String strName = "Name : " + place_type_results.get(which).toString().substring( place_type_results.get(which).toString().indexOf('*') + 1, place_type_results.get(which).toString().indexOf('#')) +
+                                    String strName = place_type_results.get(which).toString().substring( place_type_results.get(which).toString().indexOf('*') + 1, place_type_results.get(which).toString().indexOf('#')) +
                                             "\nDate Added : " + place_type_results.get(which).toString().substring(place_type_results.get(which).toString().indexOf('#') + 1,place_type_results.get(which).toString().indexOf('@')) +
                                             "\nDate Modified : " + place_type_results.get(which).toString().substring(place_type_results.get(which).toString().indexOf('@') + 1);
-                                    AlertDialog.Builder builderInner = new AlertDialog.Builder(
-                                            Profile.this,AlertDialog.THEME_HOLO_DARK);
-                                    builderInner.setMessage(strName);
-                                    builderInner.setTitle("Place Type Details");
-                                    builderInner.setPositiveButton(
-                                            "Ok",
-                                            new DialogInterface.OnClickListener() {
-                                                @Override
-                                                public void onClick(
-                                                        DialogInterface dialog,
-                                                        int which) {
-                                                    dialog.dismiss();
-                                                }
-                                            });
-                                    builderInner.show();
+
+
+                                    String restaurant_name = place_type_results.get(which).toString()
+                                            .substring( place_type_results.get(which).toString().indexOf('*') + 1,
+                                            place_type_results.get(which).toString().indexOf('#'));
+
+                                    String place_type_id = place_type_results.get(which).toString()
+                                            .substring( 0,
+                                                    place_type_results.get(which).toString().indexOf('*'));
+
+                                    Intent intent = new Intent(getApplicationContext(), Profile.class);
+                                    intent.putExtra("place_type_id", place_type_id);
+                                    startActivity(intent);
                                 }
                             }
                     );
@@ -271,15 +352,6 @@ public class Profile extends AppCompatActivity
 
             }
         });
-
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -315,6 +387,8 @@ public class Profile extends AppCompatActivity
 //                startActivity(intent);
 //            }
 //        });
+
+
     }
 
     @Override
@@ -403,8 +477,13 @@ public class Profile extends AppCompatActivity
 
             OkHttpClient client = new OkHttpClient();
 
+            RequestBody formBody = new FormEncodingBuilder()
+                    .add("condition", params[0])
+                    .build();
+
             Request request = new Request.Builder()
                     .url(url)
+                    .post(formBody)
                     .build();
 
             Response response = null;
