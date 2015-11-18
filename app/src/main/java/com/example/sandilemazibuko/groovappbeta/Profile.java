@@ -5,12 +5,14 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.view.View;
@@ -32,6 +34,7 @@ import android.widget.Toast;
 import com.google.android.gms.maps.GoogleMap;
 import com.mapbox.mapboxsdk.annotations.MarkerOptions;
 import com.mapbox.mapboxsdk.annotations.Sprite;
+import com.mapbox.mapboxsdk.annotations.SpriteFactory;
 import com.mapbox.mapboxsdk.constants.Style;
 import com.mapbox.mapboxsdk.geometry.LatLng;
 import com.mapbox.mapboxsdk.views.MapView;
@@ -113,12 +116,18 @@ public class Profile extends AppCompatActivity
                         double lati = Double.parseDouble(latitude);
                         double longLat = Double.parseDouble(longitude);
 
+                        SpriteFactory spriteFactory = new SpriteFactory(mapView);
+                        Drawable drawable = ContextCompat.getDrawable(this, R.drawable.map);
+                        Sprite icon = spriteFactory.fromDrawable(drawable);
+
                         com.mapbox.mapboxsdk.geometry.LatLng sydney = new com.mapbox.mapboxsdk.geometry.LatLng(lati, longLat);
 
                         com.mapbox.mapboxsdk.annotations.MarkerOptions myMarker = new com.mapbox.mapboxsdk.annotations.MarkerOptions()
                                 .position(sydney)
                                 .title(restaurant_name)
-                                .snippet(place_id);
+                                .snippet(place_id)
+                                .icon(icon)
+                                ;
 
                         mapView.addMarker(myMarker);
 
@@ -187,12 +196,18 @@ public class Profile extends AppCompatActivity
                         double lati = Double.parseDouble(latitude);
                         double longLat = Double.parseDouble(longitude);
 
+                        SpriteFactory spriteFactory = new SpriteFactory(mapView);
+                        Drawable drawable = ContextCompat.getDrawable(this, R.drawable.map);
+                        Sprite icon = spriteFactory.fromDrawable(drawable);
+
+
                         com.mapbox.mapboxsdk.geometry.LatLng sydney = new com.mapbox.mapboxsdk.geometry.LatLng(lati, longLat);
 
                         com.mapbox.mapboxsdk.annotations.MarkerOptions myMarker = new com.mapbox.mapboxsdk.annotations.MarkerOptions()
                                 .position(sydney)
                                 .title(restaurant_name)
-                                .snippet(place_id);
+                                .snippet(place_id)
+                                .icon(icon);
                         mapView.addMarker(myMarker);
 
 

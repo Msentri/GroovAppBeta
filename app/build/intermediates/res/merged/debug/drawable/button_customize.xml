@@ -2,4 +2,4 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:drawable="@drawable/bg_edittext_focused" android:state_focused="true"/>
     <item android:drawable="@drawable/button_nomal"/>
-</selector><!-- From: file:/Users/sandilemazibuko/AndroidStudioProjects/GroovAppBeta/app/src/main/res/drawable/button_customize.xml -->
+</selector><!-- From: file:/Users/msentri/AndroidStudioProjects/DevApp/GroovAppBeta/app/src/main/res/drawable/button_customize.xml -->

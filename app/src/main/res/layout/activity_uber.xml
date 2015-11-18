@@ -38,6 +38,8 @@ android:background="#19181d">
             android:text="Uber Coming Soon..."
             android:id="@+id/textView3"
             android:textColor="#fff" />
+
+
     </LinearLayout>
 
 

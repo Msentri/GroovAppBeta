@@ -27,18 +27,13 @@ tools:context="com.example.sandilemazibuko.groovappbeta.Profile"
             ></com.mapbox.mapboxsdk.views.MapView>
     </RelativeLayout>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:id="@+id/home_buttons"
-        >
+
 
         <TableLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:background="#000"
+            android:layout_alignParentBottom="true"
 
             >
 
@@ -47,7 +42,7 @@ tools:context="com.example.sandilemazibuko.groovappbeta.Profile"
                 android:gravity="center_horizontal">
 
                 <ImageView
-                    android:layout_width="70dp"
+                    android:layout_width="50dp"
                     android:layout_height="fill_parent"
                     android:id="@+id/btnFilter"
                     android:src="@drawable/first_home" />
@@ -59,7 +54,7 @@ tools:context="com.example.sandilemazibuko.groovappbeta.Profile"
                     android:src="@drawable/send_home" />
 
                 <ImageView
-                    android:layout_width="70dp"
+                    android:layout_width="100dp"
                     android:layout_height="fill_parent"
                     android:id="@+id/imgHome"
                     android:src="@drawable/main_home" />
@@ -71,14 +66,14 @@ tools:context="com.example.sandilemazibuko.groovappbeta.Profile"
                     android:src="@drawable/third_home" />
 
                 <ImageView
-                    android:layout_width="70dp"
+                    android:layout_width="50dp"
                     android:layout_height="fill_parent"
                     android:id="@+id/imageSearch"
                     android:src="@drawable/fourth_home" />
             </TableRow>
         </TableLayout>
-    </RelativeLayout>
+
 
 </RelativeLayout>
 
-<!-- From: file:/Users/sandilemazibuko/AndroidStudioProjects/GroovAppBeta/app/src/main/res/layout/content_profile.xml -->
+<!-- From: file:/Users/msentri/AndroidStudioProjects/DevApp/GroovAppBeta/app/src/main/res/layout/content_profile.xml -->
