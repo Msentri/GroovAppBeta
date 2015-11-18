@@ -56,7 +56,11 @@
         <activity android:name=".Test_list" />
         <activity android:name=".Uber" />
         <activity android:name=".Search" />
-        <activity android:name=".Drinks"></activity>
+        <activity android:name=".Drinks" />
+        <activity
+            android:name=".CustomListViewAndroidExample"
+            android:theme="@style/AppTheme.CustomThem" />
+        <activity android:name=".Type_place_filter"></activity>
     </application>
 
 </manifest>

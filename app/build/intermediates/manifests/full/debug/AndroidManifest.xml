@@ -72,6 +72,9 @@
         <activity android:name="com.example.sandilemazibuko.groovappbeta.Uber" />
         <activity android:name="com.example.sandilemazibuko.groovappbeta.Search" />
         <activity android:name="com.example.sandilemazibuko.groovappbeta.Drinks" />
+        <activity
+            android:name="com.example.sandilemazibuko.groovappbeta.CustomListViewAndroidExample"
+            android:theme="@style/AppTheme.CustomThem" />
         <!-- Include the AdActivity and InAppPurchaseActivity configChanges and themes. -->
         <activity
             android:name="com.google.android.gms.ads.AdActivity"
