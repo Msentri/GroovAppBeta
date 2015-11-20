@@ -60,7 +60,9 @@
         <activity
             android:name=".CustomListViewAndroidExample"
             android:theme="@style/AppTheme.CustomThem" />
-        <activity android:name=".Type_place_filter"></activity>
+        <activity android:name=".Type_place_filter"
+            android:theme="@style/AppTheme.CustomThem"
+            ></activity>
     </application>
 
 </manifest>

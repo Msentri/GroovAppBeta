@@ -8,15 +8,29 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.sandilemazibuko.groovappbeta.Type_place_filter"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:gravity="center_horizontal">
 
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="25dp"
-        android:textStyle="bold"
-        android:text=" Computer Languages..." />
+        android:gravity="center_horizontal">
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18dp"
+            android:textStyle="bold"
+            android:text="GET YOUR GROOV ON WITH" />
+
+        <ImageView
+            android:layout_width="21dp"
+            android:layout_height="match_parent"
+            android:id="@+id/imageView3"
+            android:src="@drawable/yello_stars" />
+    </LinearLayout>
 
     <ListView
         android:id="@+id/listView"

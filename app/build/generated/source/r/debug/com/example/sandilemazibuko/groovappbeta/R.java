@@ -3210,7 +3210,7 @@ containing a value of this type.
         public static final int mr_ic_play_light=0x7f0200b7;
         public static final int mr_ic_settings_dark=0x7f0200b8;
         public static final int mr_ic_settings_light=0x7f0200b9;
-        public static final int notification_template_icon_bg=0x7f0200c2;
+        public static final int notification_template_icon_bg=0x7f0200c3;
         public static final int powered_by_google_dark=0x7f0200ba;
         public static final int powered_by_google_light=0x7f0200bb;
         public static final int send_home=0x7f0200bc;
@@ -3219,6 +3219,7 @@ containing a value of this type.
         public static final int user_location=0x7f0200bf;
         public static final int user_location_bearing=0x7f0200c0;
         public static final int user_location_stale=0x7f0200c1;
+        public static final int yello_stars=0x7f0200c2;
     }
     public static final class id {
         public static final int QRcodeImageViewer=0x7f0e00af;
@@ -3250,7 +3251,7 @@ containing a value of this type.
         public static final int book_now=0x7f0e004d;
         public static final int bottom=0x7f0e001d;
         public static final int btnCreditCard=0x7f0e0090;
-        public static final int btnFilter=0x7f0e00cd;
+        public static final int btnFilter=0x7f0e00ce;
         public static final int btnLogin=0x7f0e009f;
         public static final int btnLoginUser=0x7f0e009a;
         public static final int btnReg=0x7f0e00b9;
@@ -3319,14 +3320,14 @@ containing a value of this type.
         public static final int ifRoom=0x7f0e003e;
         public static final int image=0x7f0e005f;
         public static final int imageClose=0x7f0e00ba;
-        public static final int imageDrinks=0x7f0e00cf;
-        public static final int imageSearch=0x7f0e00d0;
-        public static final int imageUber=0x7f0e00ce;
+        public static final int imageDrinks=0x7f0e00d0;
+        public static final int imageSearch=0x7f0e00d1;
+        public static final int imageUber=0x7f0e00cf;
         public static final int imageView=0x7f0e00ed;
-        public static final int imageView1=0x7f0e00d1;
         public static final int imageView10=0x7f0e00a6;
         public static final int imageView11=0x7f0e00a7;
         public static final int imageView2=0x7f0e0093;
+        public static final int imageView3=0x7f0e00cb;
         public static final int imageView7=0x7f0e00a3;
         public static final int imageView8=0x7f0e00a4;
         public static final int imgHome=0x7f0e00a5;
@@ -3345,7 +3346,7 @@ containing a value of this type.
         public static final int line3=0x7f0e00f9;
         public static final int list=0x7f0e0091;
         public static final int listMode=0x7f0e000c;
-        public static final int listView=0x7f0e00cb;
+        public static final int listView=0x7f0e00cc;
         public static final int list_item=0x7f0e0061;
         public static final int list_places=0x7f0e00c9;
         public static final int logo_only=0x7f0e0053;
@@ -3447,7 +3448,7 @@ containing a value of this type.
         public static final int title=0x7f0e0063;
         public static final int title_bar=0x7f0e00df;
         public static final int title_template=0x7f0e0068;
-        public static final int toolbar=0x7f0e00cc;
+        public static final int toolbar=0x7f0e00cd;
         public static final int top=0x7f0e0026;
         public static final int topPanel=0x7f0e0067;
         public static final int txtAccount=0x7f0e009c;

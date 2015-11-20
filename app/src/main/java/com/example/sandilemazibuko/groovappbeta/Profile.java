@@ -286,85 +286,8 @@ public class Profile extends AppCompatActivity
         imgFilter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /**SANDILE DIALOG BOX*/
-
-                //list_place_type = (ListView) findViewById(R.id.list_places);
-
-                try {
-                    place_type_results = new RequestPlaceTypes().execute().get();
-
-
-                    //Toast.makeText(Test_list.this, place_type_results.toString(), Toast.LENGTH_SHORT).show();
-
-
-                    ArrayList palce_details = new ArrayList();
-
-
-                    String name = "";
-                    for (int x = 0; x < place_type_results.size(); x++) {
-                        name = place_type_results.get(x).toString().substring( place_type_results.get(x).toString().indexOf('*') + 1, place_type_results.get(x).toString().indexOf('#'));
-                        palce_details.add(name);
-
-                    }
-                    adapter1 =
-                            new ArrayAdapter(Profile.this, android.R.layout.simple_spinner_item, palce_details);
-
-
-                    //list_place_type.setAdapter(adapter1);
-
-
-                    AlertDialog.Builder builderSingle = new AlertDialog.Builder(Profile.this,AlertDialog.THEME_HOLO_DARK);
-//            builderSingle.setIcon(R.drawable.groovapp_logo);
-                    builderSingle.setTitle("Places type");
-
-                    //builderSingle.setC
-
-
-
-                    builderSingle.setAdapter(adapter1,
-                            new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    String strName = place_type_results.get(which).toString().substring( place_type_results.get(which).toString().indexOf('*') + 1, place_type_results.get(which).toString().indexOf('#')) +
-                                            "\nDate Added : " + place_type_results.get(which).toString().substring(place_type_results.get(which).toString().indexOf('#') + 1,place_type_results.get(which).toString().indexOf('@')) +
-                                            "\nDate Modified : " + place_type_results.get(which).toString().substring(place_type_results.get(which).toString().indexOf('@') + 1);
-
-
-                                    String restaurant_name = place_type_results.get(which).toString()
-                                            .substring( place_type_results.get(which).toString().indexOf('*') + 1,
-                                            place_type_results.get(which).toString().indexOf('#'));
-
-                                    String place_type_id = place_type_results.get(which).toString()
-                                            .substring( 0,
-                                                    place_type_results.get(which).toString().indexOf('*'));
-
-                                    Intent intent = new Intent(getApplicationContext(), Profile.class);
-                                    intent.putExtra("place_type_id", place_type_id);
-                                    startActivity(intent);
-                                }
-                            }
-                    );
-                    builderSingle.setPositiveButton(
-                            "Cancel",
-                            new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(
-                                        DialogInterface dialog,
-                                        int which) {
-                                    dialog.dismiss();
-                                }
-                            });
-                    builderSingle.show();
-
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } catch (ExecutionException e) {
-                    e.printStackTrace();
-                }
-
-
-                /**SANDILE DIALOG BOX*/
-
+                Intent intent = new Intent(getApplicationContext(), Type_place_filter.class);
+                startActivity(intent);
             }
         });
 

@@ -14,4 +14,4 @@
         app:headerLayout="@layout/nav_header_profile" app:menu="@menu/activity_profile_drawer" />
 
 </android.support.v4.widget.DrawerLayout>
-<!-- From: file:/Users/sandilemazibuko/AndroidStudioProjects/GroovAppBeta/app/src/main/res/layout/activity_profile.xml -->
+<!-- From: file:/Users/msentri/AndroidStudioProjects/DevApp/GroovAppBeta/app/src/main/res/layout/activity_profile.xml -->
