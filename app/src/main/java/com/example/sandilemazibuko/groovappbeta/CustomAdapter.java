@@ -1,131 +1,68 @@
 package com.example.sandilemazibuko.groovappbeta;
 
-import java.util.ArrayList;
-
-import android.app.Activity;
 import android.content.Context;
-import android.content.res.Resources;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-/********* Adapter class extends with BaseAdapter and implements with OnClickListener ************/
-public class CustomAdapter extends BaseAdapter   implements OnClickListener {
-
-    /*********** Declare Used Variables *********/
-    private Activity activity;
-    private ArrayList data;
+import android.widget.Toast;
+public class CustomAdapter extends BaseAdapter{
+    String [] result;
+    Context context;
+    int [] imageId;
     private static LayoutInflater inflater=null;
-    public Resources res;
-    ListModel tempValues=null;
-    int i=0;
-
-    /*************  CustomAdapter Constructor *****************/
-    public CustomAdapter(Activity a, ArrayList d,Resources resLocal) {
-
-        /********** Take passed values **********/
-        activity = a;
-        data=d;
-        res = resLocal;
-
-        /***********  Layout inflator to call external xml layout () **********************/
-        inflater = (LayoutInflater)activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
+    public CustomAdapter(Type_place_filter mainActivity, String[] prgmNameList, int[] prgmImages) {
+        // TODO Auto-generated constructor stub
+        result=prgmNameList;
+        context=mainActivity;
+        imageId=prgmImages;
+        inflater = ( LayoutInflater )context.
+                getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
-
-    /******** What is the size of Passed Arraylist Size ************/
+    @Override
     public int getCount() {
-
-        if(data.size()<=0)
-            return 1;
-        return data.size();
-    }
-
-    public Object getItem(int position) {
-        return position;
-    }
-
-    public long getItemId(int position) {
-        return position;
-    }
-
-    /********* Create a holder to contain inflated xml file elements ***********/
-    public static class ViewHolder{
-
-        public TextView text;
-        public TextView text1;
-        public TextView textWide;
-        public ImageView image;
-
-    }
-
-    /*********** Depends upon data size called for each row , Create each ListView row ***********/
-    public View getView(int position, View convertView, ViewGroup parent) {
-
-        View vi=convertView;
-        ViewHolder holder;
-
-        if(convertView==null){
-
-            /********** Inflate tabitem.xml file for each row ( Defined below ) ************/
-            vi = inflater.inflate(R.layout.tabitem, null);
-
-            /******** View Holder Object to contain tabitem.xml file elements ************/
-            holder=new ViewHolder();
-            holder.text=(TextView)vi.findViewById(R.id.text);
-            holder.text1=(TextView)vi.findViewById(R.id.text1);
-            holder.image=(ImageView)vi.findViewById(R.id.image);
-
-            /************  Set holder with LayoutInflater ************/
-            vi.setTag(holder);
-        }
-        else
-            holder=(ViewHolder)vi.getTag();
-
-        if(data.size()<=0)
-        {
-            holder.text.setText("No Data");
-
-        }
-        else
-        {
-            /***** Get each Model object from Arraylist ********/
-            tempValues=null;
-            tempValues = (ListModel) data.get(position);
-
-            /************  Set Model values in Holder elements ***********/
-            holder.text.setText(tempValues.getCompanyName());
-            holder.text1.setText(tempValues.getUrl());
-            holder.image.setImageResource(res.getIdentifier("com.example.sandilemazibuko.groovappbeta:drawable/"+tempValues.getImage(),null,null));
-
-            /******** Set Item Click Listner for LayoutInflater for each row ***********/
-            vi.setOnClickListener(new OnItemClickListener(position));
-        }
-        return vi;
+        // TODO Auto-generated method stub
+        return result.length;
     }
 
     @Override
-    public void onClick(View v) {
-        Log.v("CustomAdapter", "=====Row button clicked");
+    public Object getItem(int position) {
+        // TODO Auto-generated method stub
+        return position;
     }
 
-    /********* Called when Item click in ListView ************/
-    private class OnItemClickListener  implements OnClickListener{
-        private int mPosition;
-
-        OnItemClickListener(int position){
-            mPosition = position;
-        }
-
-        @Override
-        public void onClick(View arg0) {
-            CustomListViewAndroidExample sct = (CustomListViewAndroidExample)activity;
-            sct.onItemClick(mPosition);
-        }
+    @Override
+    public long getItemId(int position) {
+        // TODO Auto-generated method stub
+        return position;
     }
+
+    public class Holder
+    {
+        TextView tv;
+        ImageView img;
+    }
+    @Override
+    public View getView(final int position, View convertView, ViewGroup parent) {
+        // TODO Auto-generated method stub
+        Holder holder=new Holder();
+        View rowView;
+        rowView = inflater.inflate(R.layout.custome_list_filter, null);
+        holder.tv=(TextView) rowView.findViewById(R.id.textView1);
+        holder.img=(ImageView) rowView.findViewById(R.id.imageView1);
+        holder.tv.setText(result[position]);
+        holder.img.setImageResource(imageId[position]);
+        rowView.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                Toast.makeText(context, "You Clicked "+result[position], Toast.LENGTH_LONG).show();
+            }
+        });
+        return rowView;
+    }
+
 }

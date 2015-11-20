@@ -39,7 +39,7 @@ public class CustomListViewAndroidExample extends Activity {
         list=(ListView)findViewById(R.id.list);
 
         /**************** Create Custom Adapter *********/
-        adapter=new CustomAdapter(CustomListView, CustomListViewValuesArr,res);
+        //adapter=new CustomAdapter(CustomListView, CustomListViewValuesArr,res);
         list.setAdapter(adapter);
 
     }

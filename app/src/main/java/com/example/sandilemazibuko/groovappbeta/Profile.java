@@ -267,7 +267,7 @@ public class Profile extends AppCompatActivity
         imageSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), Search.class);
+                Intent intent = new Intent(getApplicationContext(), Type_place_filter.class);
                 startActivity(intent);
             }
         });
