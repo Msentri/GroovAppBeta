@@ -73,15 +73,8 @@
         <activity android:name="com.example.sandilemazibuko.groovappbeta.Search" />
         <activity android:name="com.example.sandilemazibuko.groovappbeta.Drinks" />
         <activity
-            android:name="com.example.sandilemazibuko.groovappbeta.CustomListViewAndroidExample"
-            android:theme="@style/AppTheme.CustomThem" />
-        <activity
             android:name="com.example.sandilemazibuko.groovappbeta.Type_place_filter"
             android:theme="@style/AppTheme.CustomThem" />
-        <activity
-            android:name="com.example.sandilemazibuko.groovappbeta.Events"
-            android:theme="@style/AppTheme.CustomThem" >
-        </activity>
         <!-- Include the AdActivity and InAppPurchaseActivity configChanges and themes. -->
         <activity
             android:name="com.google.android.gms.ads.AdActivity"
