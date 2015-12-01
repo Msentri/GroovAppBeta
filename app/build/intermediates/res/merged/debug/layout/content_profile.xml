@@ -28,8 +28,13 @@ tools:context="com.example.sandilemazibuko.groovappbeta.Profile"
     </RelativeLayout>
 
 
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="55dp"
+        android:layout_alignParentBottom="true"
+        android:background="#000000"></RelativeLayout>
 
-        <TableLayout
+    <TableLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -45,7 +50,8 @@ tools:context="com.example.sandilemazibuko.groovappbeta.Profile"
                     android:layout_width="50dp"
                     android:layout_height="fill_parent"
                     android:id="@+id/btnFilter"
-                    android:src="@drawable/first_home" />
+                    android:src="@drawable/first_home"
+                    android:paddingTop="15dp" />
 
                 <ImageView
                     android:layout_width="70dp"
@@ -66,14 +72,15 @@ tools:context="com.example.sandilemazibuko.groovappbeta.Profile"
                     android:src="@drawable/third_home" />
 
                 <ImageView
-                    android:layout_width="50dp"
+                    android:layout_width="55dp"
                     android:layout_height="fill_parent"
                     android:id="@+id/imageSearch"
-                    android:src="@drawable/fourth_home" />
+                    android:src="@drawable/fourth_home"
+                    android:paddingTop="15dp" />
             </TableRow>
         </TableLayout>
 
 
 </RelativeLayout>
 
-<!-- From: file:/Users/msentri/AndroidStudioProjects/DevApp/GroovAppBeta/app/src/main/res/layout/content_profile.xml -->
+<!-- From: file:/Users/sandilemazibuko/AndroidStudioProjects/GroovAppBeta/app/src/main/res/layout/content_profile.xml -->

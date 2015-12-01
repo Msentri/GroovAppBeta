@@ -18,14 +18,15 @@
         android:layout_weight="0.99" />
 
     <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-        android:paddingTop="@dimen/nav_header_vertical_spacing" android:text="Sandile Mazibuko"
+        android:paddingTop="@dimen/nav_header_vertical_spacing" android:text="there should be type"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        android:id="@+id/txtnamedisplay"
+        android:id="@+id/txtMemberType"
         android:textColor="#E89500"
         android:textSize="20dp" />
 
     <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-        android:text="msentri@gmail.com" android:id="@+id/txtemailProfile"
-        android:textColor="#fff" />
+        android:text="The Should name" android:id="@+id/txtProfileNames"
+        android:textColor="#fff"
+        android:textSize="18dp" />
 
 </LinearLayout>

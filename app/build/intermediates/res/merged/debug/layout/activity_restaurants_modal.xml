@@ -31,8 +31,10 @@
             android:layout_marginTop="8dp">
 
             <ImageView
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:adjustViewBounds="true"
+                android:scaleType="centerCrop"
                 android:id="@+id/res_image" />
         </LinearLayout>
 
@@ -82,7 +84,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
-            android:layout_gravity="left">
+            android:layout_gravity="left"
+            android:gravity="center_horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -97,24 +100,7 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="Free"
-                android:id="@+id/textView9"
-                android:textColor="#fff" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="Promo3: "
-                android:id="@+id/textView10"
-                android:textColor="#ffaf1b"
-                android:paddingLeft="20dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="Free"
-                android:id="@+id/textView11"
+                android:id="@+id/txtEntryStatus"
                 android:textColor="#fff" />
 
         </LinearLayout>
@@ -124,7 +110,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
-            android:layout_gravity="left" >
+            android:layout_gravity="left"
+            android:gravity="center_horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -139,24 +126,7 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="2"
-                android:id="@+id/textView13"
-                android:textColor="#fff" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="Promo4: "
-                android:id="@+id/textView14"
-                android:textColor="#ffaf1b"
-                android:paddingLeft="29dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="2"
-                android:id="@+id/textView15"
+                android:id="@+id/txtBottleOffer"
                 android:textColor="#fff" />
 
         </LinearLayout>
@@ -176,7 +146,8 @@
                 android:text="is simply dummy text of the printing and typesetting industry. Lorem Ipsumis simply dummy text of the printing and typesetting industry. Lorem Ipsumis simply dummy text of the printing and typesetting industry. Lorem Ipsum"
                 android:id="@+id/introContent"
                 android:textColor="#fff"
-                android:layout_weight="3.23" />
+                android:layout_weight="3.23"
+                android:gravity="center_horizontal" />
         </LinearLayout>
 
         <Button
@@ -187,4 +158,4 @@
 
     </LinearLayout>
 </LinearLayout>
-<!-- From: file:/Users/msentri/AndroidStudioProjects/DevApp/GroovAppBeta/app/src/main/res/layout/activity_restaurants_modal.xml -->
+<!-- From: file:/Users/sandilemazibuko/AndroidStudioProjects/GroovAppBeta/app/src/main/res/layout/activity_restaurants_modal.xml -->

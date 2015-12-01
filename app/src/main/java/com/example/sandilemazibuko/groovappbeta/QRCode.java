@@ -15,6 +15,11 @@ import com.google.zxing.qrcode.QRCodeWriter;
 public class QRCode extends AppCompatActivity {
     LocalStorage userDatabase;
 
+    public String entryStatus;
+    public String bottleOffter;
+    public String restaurant_name;
+    public String restaurant_provinces;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,18 +35,38 @@ public class QRCode extends AppCompatActivity {
         String EMAIL = userDatabase.sharedPreferences.getString("user_email","");
         String DOB = userDatabase.sharedPreferences.getString("user_dob","");
 
-        TextView txtname = (TextView)findViewById(R.id.txtNames);
-        TextView txtsurname = (TextView)findViewById(R.id.txtSurname);
-        TextView txtEmail = (TextView)findViewById(R.id.txtEmail);
-        TextView txtdob = (TextView)findViewById(R.id.txtdateofbirth);
-
-        txtname.setText("Name : " + NAME);
-        txtsurname.setText("Surname : " + SURNAME);
-        txtEmail.setText("Email : " + EMAIL);
-        txtdob.setText("Date Of Birth " + DOB);
 
 
-        String QRC = "Name : " +NAME + "\n Surname : "+ SURNAME + "\nEmail : " + EMAIL + "\nDateOfBirth : " + DOB + "\nApplication Name : GroovApp" ;
+
+
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+
+             entryStatus = extras.getString("entryStatus");
+             bottleOffter = extras.getString("bottleOffter");
+             restaurant_name = extras.getString("restaurant_name");
+             restaurant_provinces = extras.getString("restaurant_provinces");
+        }
+
+        TextView txtEntrance = (TextView)findViewById(R.id.txtEntrance);
+        TextView txtBottleOffer = (TextView)findViewById(R.id.txtBottleOffer);
+        TextView txtProvince = (TextView)findViewById(R.id.txtProvince);
+
+
+        txtEntrance.setText(entryStatus + " Entrance");
+        txtBottleOffer.setText(bottleOffter + " Bottles");
+        txtProvince.setText(restaurant_name + " - " + restaurant_provinces);
+
+
+        String QRC = "Name : " +NAME
+                + "\n Surname : "+ SURNAME
+                + "\nEmail : " + EMAIL
+                + "\nDateOfBirth : " + DOB
+                + "\nApplication Name : GroovApp"
+                + "ENTRY STATUS : " + entryStatus
+                + "BOTTLE OFFER :" + bottleOffter
+                + "RESTAURANT NAME " + restaurant_name
+                + "RESTAURANT PROVINCE " + restaurant_provinces;
 
 
         ImageView imgeQR = (ImageView)findViewById(R.id.QRcodeImageViewer);

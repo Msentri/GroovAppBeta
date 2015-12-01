@@ -20,43 +20,46 @@
         android:id="@+id/textView"
         android:textColor="#fff" />
 
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="300dp"
+        android:id="@+id/QRcodeImageViewer" />
+
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:id="@+id/txtNames"
-            android:textColor="#fff" />
+            android:id="@+id/txtEntrance"
+            android:textColor="#E89500" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:id="@+id/txtSurname"
-            android:textColor="#fff" />
+            android:id="@+id/txtBottleOffer"
+            android:textColor="#E89500" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:id="@+id/txtEmail"
-            android:textColor="#fff" />
+            android:id="@+id/txtProvince"
+            android:textColor="#fff"
+            android:text="12" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:id="@+id/txtdateofbirth"
-            android:textColor="#fff" />
+            android:textColor="#E89500"
+            android:text="LIFE IN THE SKYY" />
     </LinearLayout>
-
-    <ImageView
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:id="@+id/QRcodeImageViewer" />
 </LinearLayout>
-<!-- From: file:/Users/msentri/AndroidStudioProjects/DevApp/GroovAppBeta/app/src/main/res/layout/activity_qrcode.xml -->
+<!-- From: file:/Users/sandilemazibuko/AndroidStudioProjects/GroovAppBeta/app/src/main/res/layout/activity_qrcode.xml -->

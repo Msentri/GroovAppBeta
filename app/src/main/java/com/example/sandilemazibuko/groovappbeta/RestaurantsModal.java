@@ -37,6 +37,15 @@ public class RestaurantsModal extends AppCompatActivity {
     ImageView res_image;
     Bitmap bitmap;
 
+    public String restaurant_name;
+    public String RES_NUMBER;
+    public String RES_IMAGE_URL;
+    public String entry_status;
+    public String bottle_offer;
+
+    public String restaurant_provinces;
+    public String introContentRes;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,18 +64,23 @@ public class RestaurantsModal extends AppCompatActivity {
         getWindow().setLayout((int) (width * .9), (int) (height * .7));
 
         Bundle extras = getIntent().getExtras();
+
+         restaurant_name = extras.getString("Place");
+         RES_NUMBER = extras.getString("RES_ID_NUMBER");
+         RES_IMAGE_URL = "";
+         entry_status = "";
+         bottle_offer = "";
+
+
         if (extras != null) {
 
-            String restaurant_name = extras.getString("Place");
-            String RES_NUMBER = extras.getString("RES_ID_NUMBER");
-            String RES_IMAGE_URL = "";
+
 
 
 
             JSONArray Jarray = null;
 
-            String restaurant_provinces =  "";
-            String introContentRes = "";
+
 
             try {
                 String[] myTaskParams = {RES_NUMBER};
@@ -79,6 +93,9 @@ public class RestaurantsModal extends AppCompatActivity {
                 restaurant_provinces = object.getString("street");
                 introContentRes = object.getString("intro");
                 RES_IMAGE_URL = object.getString("image");
+                entry_status = object.getString("entry_status");
+                bottle_offer = object.getString("bottle_offer");
+
 
                 //Toast.makeText(RestaurantsModal.this, restaurant_provinces, Toast.LENGTH_SHORT).show();
 
@@ -93,10 +110,13 @@ public class RestaurantsModal extends AppCompatActivity {
 
             res_image = (ImageView)findViewById(R.id.res_image);
 
+            TextView txtEntryStatus = (TextView)findViewById(R.id.txtEntryStatus);
+            txtEntryStatus.setText(entry_status);
+
+            TextView txtBottleOffer = (TextView)findViewById(R.id.txtBottleOffer);
+            txtBottleOffer.setText(bottle_offer);
+
             new LoadImage().execute(RES_IMAGE_URL);
-
-
-
 
             TextView txtCity = (TextView)findViewById(R.id.txtCity);
             txtCity.setText(restaurant_provinces);
@@ -123,7 +143,14 @@ public class RestaurantsModal extends AppCompatActivity {
         attendVanue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
                 Intent intent = new Intent(RestaurantsModal.this, QRCode.class);
+                intent.putExtra("entryStatus",entry_status);
+                intent.putExtra("bottleOffter",bottle_offer);
+                intent.putExtra("restaurant_name",restaurant_name);
+                intent.putExtra("restaurant_provinces",restaurant_provinces);
+
                 startActivity(intent);
             }
         });

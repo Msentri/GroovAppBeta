@@ -205,8 +205,18 @@ public class Login extends AppCompatActivity {
                             //String date_registered = object.getString("user_registered");
                             //String date_modified = object.getString("user_registered");
 
+                            String membership_type_name = "";
+
+                            if(user_membership_type.equals("1")){
+                                membership_type_name  = "Black Opening Member";
+                            }else if(user_membership_type.equals("2")){
+                                membership_type_name  = "Gold Member";
+                            }else if(user_membership_type.equals("3")){
+                                membership_type_name  = "Platinum Member";
+                            }
+
                             User newUser = new User(user_id,name,surname,
-                                    profile_pic,password,cellphone,email,user_dob,user_membership_type,"1");
+                                    profile_pic,password,cellphone,email,user_dob,membership_type_name,"1");
                             userDatabase.storeUserDetailsOnPreference(newUser);
 
                             Intent intent = new Intent(Login.this, Profile.class);

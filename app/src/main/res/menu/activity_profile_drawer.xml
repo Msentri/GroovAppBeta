@@ -2,12 +2,25 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <group android:checkableBehavior="single">
-        <item android:id="@+id/upgrade_membership" android:icon="@android:drawable/ic_menu_camera"
+
+        <item android:id="@+id/goov_wallet"
+            android:title="Groov Wallet" />
+
+
+        <item android:id="@+id/upgrade_membership"
             android:title="Upgrade Membership"
             android:textColor="#fff" />
             />
-        <item android:id="@+id/account_settings" android:icon="@android:drawable/ic_menu_camera"
+        <item android:id="@+id/account_settings"
             android:title="Account Settings" />
+
+
+
+        <item android:id="@+id/groov_support"
+            android:title="Support" />
+
+        <item android:id="@+id/groov_logout"
+            android:title="Log out" />
     </group>
 
 

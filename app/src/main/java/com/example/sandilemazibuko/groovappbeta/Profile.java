@@ -1,20 +1,14 @@
 package com.example.sandilemazibuko.groovappbeta;
 
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.ActionBar;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -25,13 +19,13 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.GoogleMap;
+import com.mapbox.mapboxsdk.annotations.Marker;
 import com.mapbox.mapboxsdk.annotations.MarkerOptions;
 import com.mapbox.mapboxsdk.annotations.Sprite;
 import com.mapbox.mapboxsdk.annotations.SpriteFactory;
@@ -74,6 +68,8 @@ public class Profile extends AppCompatActivity
     ArrayAdapter adapter1,adapter2;
     ArrayList place_type_results;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,6 +78,37 @@ public class Profile extends AppCompatActivity
         setSupportActionBar(toolbar);
 
         userDatabase = new LocalStorage(this);
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.setDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+
+        /**
+         * LOCAL STORE
+         */
+        String USER_ID = userDatabase.sharedPreferences.getString("user_id","");
+        String NAME = userDatabase.sharedPreferences.getString("user_name","");
+        String SURNAME = userDatabase.sharedPreferences.getString("user_surname","");
+        String EMAIL = userDatabase.sharedPreferences.getString("user_email","");
+        String MEMBER_SHIP_TYPE = userDatabase.sharedPreferences.getString("user_membership_type","");
+        /**
+         * LOCAL STORE
+         */
+
+        String USER_FULL_NAMES = NAME + " " + SURNAME;
+
+        TextView txtProfileNames = (TextView) navigationView.getHeaderView(0).findViewById(R.id.txtProfileNames);
+        txtProfileNames.setText(USER_FULL_NAMES);
+
+        TextView txtMemberType = (TextView) navigationView.getHeaderView(0).findViewById(R.id.txtMemberType);
+        txtMemberType.setText(MEMBER_SHIP_TYPE);
+
+
 
         Bundle extras = getIntent().getExtras();
         if (extras == null) {
@@ -120,9 +147,9 @@ public class Profile extends AppCompatActivity
                         Drawable drawable = ContextCompat.getDrawable(this, R.drawable.map);
                         Sprite icon = spriteFactory.fromDrawable(drawable);
 
-                        com.mapbox.mapboxsdk.geometry.LatLng sydney = new com.mapbox.mapboxsdk.geometry.LatLng(lati, longLat);
+                        LatLng sydney = new LatLng(lati, longLat);
 
-                        com.mapbox.mapboxsdk.annotations.MarkerOptions myMarker = new com.mapbox.mapboxsdk.annotations.MarkerOptions()
+                        MarkerOptions myMarker = new MarkerOptions()
                                 .position(sydney)
                                 .title(restaurant_name)
                                 .snippet(place_id)
@@ -135,7 +162,7 @@ public class Profile extends AppCompatActivity
 
                         mapView.setOnMarkerClickListener(new MapView.OnMarkerClickListener() {
                             @Override
-                            public boolean onMarkerClick(com.mapbox.mapboxsdk.annotations.Marker marker) {
+                            public boolean onMarkerClick(Marker marker) {
 
                                 Intent intent = new Intent(getApplicationContext(), RestaurantsModal.class);
                                 intent.putExtra("Place", marker.getTitle());
@@ -153,7 +180,7 @@ public class Profile extends AppCompatActivity
                     e.printStackTrace();
                 }
 
-                mapView.setCenterCoordinate(new com.mapbox.mapboxsdk.geometry.LatLng(-26.1019238, 28.0230654));
+                mapView.setCenterCoordinate(new LatLng(-26.1019238, 28.0230654));
 
                 mapView.setZoomLevel(9);
                 mapView.onCreate(savedInstanceState);
@@ -201,9 +228,9 @@ public class Profile extends AppCompatActivity
                         Sprite icon = spriteFactory.fromDrawable(drawable);
 
 
-                        com.mapbox.mapboxsdk.geometry.LatLng sydney = new com.mapbox.mapboxsdk.geometry.LatLng(lati, longLat);
+                        LatLng sydney = new LatLng(lati, longLat);
 
-                        com.mapbox.mapboxsdk.annotations.MarkerOptions myMarker = new com.mapbox.mapboxsdk.annotations.MarkerOptions()
+                        MarkerOptions myMarker = new MarkerOptions()
                                 .position(sydney)
                                 .title(restaurant_name)
                                 .snippet(place_id)
@@ -213,7 +240,7 @@ public class Profile extends AppCompatActivity
 
                         mapView.setOnMarkerClickListener(new MapView.OnMarkerClickListener() {
                             @Override
-                            public boolean onMarkerClick(com.mapbox.mapboxsdk.annotations.Marker marker) {
+                            public boolean onMarkerClick(Marker marker) {
 
                                 Intent intent = new Intent(getApplicationContext(), RestaurantsModal.class);
                                 intent.putExtra("Place", marker.getTitle());
@@ -231,7 +258,7 @@ public class Profile extends AppCompatActivity
                     e.printStackTrace();
                 }
 
-                mapView.setCenterCoordinate(new com.mapbox.mapboxsdk.geometry.LatLng(-26.1019238, 28.0230654));
+                mapView.setCenterCoordinate(new LatLng(-26.1019238, 28.0230654));
 
                 mapView.setZoomLevel(9);
                 mapView.onCreate(savedInstanceState);
@@ -249,7 +276,7 @@ public class Profile extends AppCompatActivity
         imgHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), Profile.class);
+                Intent intent = new Intent(getApplicationContext(), Events.class);
                 startActivity(intent);
             }
         });
@@ -290,43 +317,6 @@ public class Profile extends AppCompatActivity
                 startActivity(intent);
             }
         });
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
-        toggle.syncState();
-
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-
-        /**
-         * LOCAL STORE
-         */
-        String USER_ID = userDatabase.sharedPreferences.getString("user_id","");
-        String NAME = userDatabase.sharedPreferences.getString("user_name","");
-        String SURNAME = userDatabase.sharedPreferences.getString("user_surname","");
-        String EMAIL = userDatabase.sharedPreferences.getString("user_email","");
-        /**
-         * LOCAL STORE
-         */
-
-//        TextView txtname = (TextView) findViewById(R.id.txtnamedisplay);
-//        String USER_FULL_NAMES = NAME + " " + SURNAME;
-//        txtname.setText(USER_FULL_NAMES);
-//        TextView txtemailProfile = (TextView) findViewById(R.id.txtemailProfile);
-//        txtemailProfile.setText(EMAIL);
-
-//        Button myMapButton = (Button) findViewById(R.id.myMapButton);
-//        myMapButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(Profile.this, MapsActivity.class);
-//                startActivity(intent);
-//            }
-//        });
-
-
     }
 
     @Override
@@ -377,7 +367,14 @@ public class Profile extends AppCompatActivity
 
         } else if (id == R.id.upgrade_membership) {
 
+        } else if(id == R.id.groov_logout){
+            //logging out and clear datas
+            userDatabase.clearUserData();
+            Intent intent = new Intent(Profile.this, MainActivity.class);
+            startActivity(intent);
         }
+
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
@@ -469,72 +466,5 @@ public class Profile extends AppCompatActivity
         super.onResume();
         mapView.onResume();
     }
-    private class RequestPlaceTypes extends AsyncTask<String, String, ArrayList>{
 
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            pDialog = new ProgressDialog(Profile.this);
-            pDialog.setMessage("Please wait loading Place Types");
-            pDialog.show();
-        }
-
-
-        @Override
-        protected ArrayList doInBackground(String... params) {
-
-            String url = "http://groovapp.codist.co.za/get_all_place_type.php";
-
-            OkHttpClient client = new OkHttpClient();
-
-            Request request = new Request.Builder()
-                    .url(url)
-                    .build();
-
-            Response response = null;
-            JSONObject Jobject = null;
-            JSONArray Jarray = null;
-
-            ArrayList<String> place_type_results = new ArrayList<>();
-
-            try {
-                response = client.newCall(request).execute();
-                String StringRespons = response.body().string();
-                Jobject = new JSONObject(StringRespons);
-
-                Jarray = Jobject.getJSONArray("place_type");
-
-                for(int x = 0; x < Jarray.length();x++){
-                    JSONObject object = Jarray.getJSONObject(x);
-
-                    String place_type_id = object.getString("id");
-                    String place_type_name = object.getString("name");
-                    String place_type_date_added = object.getString("added");
-                    String place_type_date_modified = object.getString("modified");
-
-
-                    String all = place_type_id + "*" + place_type_name + "#" + place_type_date_added + "@" + place_type_date_modified;
-
-                    // place_type_results.add(place_type_id);
-                    place_type_results.add(all);
-                    //place_type_results.add(place_type_date_added);
-                    //place_type_results.add(place_type_date_modified);
-
-                }
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-
-            return place_type_results;
-
-        }
-        @Override
-        protected void onPostExecute(ArrayList result) {
-            pDialog.dismiss();
-        }
-    }
 }
